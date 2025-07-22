@@ -6,8 +6,20 @@
 <meta charset="UTF-8">
 <title>Tシャツ注文システム</title>
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
+
+<script>/*ベースカラー格納用変数*/
+let baseColor;
+
+/*ベースカラー変更*/
+function ChangeBaseColor(){
+	baseColor = document.getElementById("base-color").value;
+	//デバッグ用
+	console.log(baseColor);
+}</script>
+
+
 </head>
-<body>
+<body style="margin: 0% 20%">
 <p>会社名：</p>
 <p>ユーザー：</p>
 
@@ -17,10 +29,38 @@
 </p>
 
 <div id="tab-body">
-	<div id="tab1">tab1の内容</div>
-	<div id="tab2">tab2の内容</div>
+	<!-- デザイン画面 -->
+	<div class="tab" id="tab1">
+		<h1 style="text-align:center;">Tシャツデザイン画面</h1>
+		<p>Tシャツのベースカラー</p>
+		<select id="base-color" onchange="ChangeBaseColor()">
+			<option value="White-T">白</option>
+			<option value="Gray-T">グレー</option>
+			<option value="Black-T">黒</option>
+		</select>
+		<div style="text-align: right;">
+			<button id="design-reset">デザインのリセット</button>
+		</div>
+
+		
+		
+		
+		<!-- 
+		----デザイン表示画面 
+		-->
+		
+		<div id="view-design">
+		
+		</div>
+	</div>
+	
+	
+	<!-- 注文履歴画面 -->
+	<div class="tab" id="tab2">
+		<h1>注文履歴画面</h1>
+	</div>
 </div>
 
-<script type="module" src="css/designChange.js"></script>
+<script type="module" src="scripts/designChange.js"></script>
 </body>
 </html> 

@@ -1,4 +1,8 @@
 @charset "UTF-8";
+/*tabの位置調整*/
+#tab-control {
+	text-align:right;
+}
 /*tabのデザイン*/
 #tab-control a {
    display: inline-block;            /* インラインブロック化 */
@@ -18,7 +22,7 @@
 	text-decoration: underline;
 }
 /*タブの中身を表示する*/
-#tab-body div{
+.tab{
 	border: 1px solid black;
 	margin-top: -1px;
 	padding: 1em;
