@@ -25,7 +25,7 @@ for(let i=0; i<tabs.length; i++){
 }
 
 /*最初は先頭のタブを選択*/
-tabs[0].onclick();
+//tabs[0].onclick();
 
 /*ベースカラー変更*/
 function ChangeBaseColor(){
