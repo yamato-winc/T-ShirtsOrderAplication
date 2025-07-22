@@ -4,9 +4,9 @@ import java.sql.Date;
 
 public class FontColorDTO {
 	private String fontColorId;
-	private String fontColorR;
-	private String fontColorG;
-	private String fontColorB;
+	private int fontColorR;
+	private int fontColorG;
+	private int fontColorB;
 	private Date fontColorUseStart;
 	private Date fontColorUserEnd;
 	
@@ -17,22 +17,22 @@ public class FontColorDTO {
 	public void setFontColorId(String fontColorId) {
 		this.fontColorId = fontColorId;
 	}
-	public String getFontColorR() {
+	public int getFontColorR() {
 		return fontColorR;
 	}
-	public void setFontColorR(String fontColorR) {
+	public void setFontColorR(int fontColorR) {
 		this.fontColorR = fontColorR;
 	}
-	public String getFontColorG() {
+	public int getFontColorG() {
 		return fontColorG;
 	}
-	public void setFontColorG(String fontColorG) {
+	public void setFontColorG(int fontColorG) {
 		this.fontColorG = fontColorG;
 	}
-	public String getFontColorB() {
+	public int getFontColorB() {
 		return fontColorB;
 	}
-	public void setFontColorB(String fontColorB) {
+	public void setFontColorB(int fontColorB) {
 		this.fontColorB = fontColorB;
 	}
 	public Date getFontColorUseStart() {

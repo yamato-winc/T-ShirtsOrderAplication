@@ -11,7 +11,7 @@ public class DesignDAO {
 	
 	public void getDesignDTO() {
 
-        String sql = "SELECT order_code, base_color, text1, text1_size, text1_fontcolor_id, text2, text2_size, text2_fontcolor_id, vertical_position,side_position FROM DESIGN_TABLE";
+        String sql = "SELECT order_code, base_color, text1, text1_size, text1_fontcolor_id, text2, text2_size, text2_fontcolor_id, vertical_position,side_position FROM DESIGN_TABLE where order_code = ?";
 
         try (Connection conn = DBAccess.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
