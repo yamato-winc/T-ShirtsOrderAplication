@@ -49,17 +49,25 @@
 		<!-- Tシャツ表示 -->
 		<div id="view-design">
 		</div>
-	
+			
 		<div id="order-submit">
 			<h2>注文番号 : <input type="text">枚 <input type=submit value="注文確定"></h2>
 		</div>
 	
 	</div>
 	
-	
 	<!-- 注文履歴画面 -->
 	<div class="tab" id="tab2">
-		<h1>注文履歴画面</h1>
+		<h1 style="text-align:left;">注文履歴画面</h1>
+		<table id="history-table">
+			<tr>
+			<th>注文番号</th>
+			<th>注文日</th>
+			<th>枚数</th>
+			<th>デザイン</th>
+			</tr>
+			<%=  %> <!-- 表のHTMLが入った変数を入れる -->
+		</table>
 	</div>
 </div>
 

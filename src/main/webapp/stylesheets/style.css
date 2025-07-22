@@ -48,3 +48,17 @@
 	padding-top:500px;
 	text-align:center;
 }
+
+/*
+**ここから注文履歴のstyle
+*/
+#history-table {
+	border-collapse: collapse;
+	border:0.5px solid ;
+}
+#history-table th{
+	border:0.5px solid
+}
+#history-table td{
+	border:0.5px solid
+}
