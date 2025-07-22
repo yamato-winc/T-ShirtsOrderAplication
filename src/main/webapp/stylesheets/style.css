@@ -2,6 +2,7 @@
 /*tabの位置調整*/
 #tab-control {
 	text-align:right;
+
 }
 /*tabのデザイン*/
 #tab-control a {
@@ -24,9 +25,26 @@
 /*タブの中身を表示する*/
 .tab{
 	border: 1px solid black;
-	margin-top: -1px;
+	margin-top: -16px;
 	padding: 1em;
 	background-color:white;
 	position: relative;
 	z-index: 0;
+}
+/*デザイン入力欄の設定*/
+#input-field {
+	float:right;
+	padding-right:50px;
+}
+/*デザイン表示欄の設定*/
+#view-design {
+	height:500px;
+	width:500px;
+	border:1px solid;
+	float: left;
+}
+/*枚数入力欄と注文確定ボタンの設定*/
+#order-submit {
+	padding-top:500px;
+	text-align:center;
 }

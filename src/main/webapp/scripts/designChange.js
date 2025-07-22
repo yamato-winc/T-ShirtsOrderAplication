@@ -27,12 +27,10 @@ for(let i=0; i<tabs.length; i++){
 /*最初は先頭のタブを選択*/
 tabs[0].onclick();
 
-/*ベースカラー格納用変数*/
-let baseColor;
-
 /*ベースカラー変更*/
 function ChangeBaseColor(){
-	baseColor = document.getElementById("base-color").value;
-	//デバッグ用
-	console.log(baseColor);
+	let selectedColor = document.getElementById("base-color").value;
+	const viewDesign = document.getElementById("view-design");
+	
+	viewDesign.innerHTML= "<img src=\"image/" + selectedColor + ".png\" alt=\"Tシャツの画像\" style=\"height:500px; width:500px;\">";
 }

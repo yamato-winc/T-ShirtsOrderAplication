@@ -7,19 +7,9 @@
 <title>Tシャツ注文システム</title>
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
 
-<script>/*ベースカラー格納用変数*/
-let baseColor;
-
-/*ベースカラー変更*/
-function ChangeBaseColor(){
-	baseColor = document.getElementById("base-color").value;
-	//デバッグ用
-	console.log(baseColor);
-}</script>
-
 
 </head>
-<body style="margin: 0% 20%">
+<body style="margin: 0% 20%" onload="ChangeBaseColor()">
 <p>会社名：</p>
 <p>ユーザー：</p>
 
@@ -41,17 +31,29 @@ function ChangeBaseColor(){
 		<div style="text-align: right;">
 			<button id="design-reset">デザインのリセット</button>
 		</div>
-
 		
-		
-		
-		<!-- 
-		----デザイン表示画面 
-		-->
-		
-		<div id="view-design">
-		
+		<!-- 入力欄 -->
+		<div id="input-field">
+			<p>Tシャツに入れる文字(上段)</p>
+			<input type="text" id="upper-text-input">
+			
+			<p>Tシャツに入れつ文字(下段)</p>
+			<input type="text" id="lower-text-input">
+			
+			<p>上段文字のフォントサイズ<input type="number">pt</p>
+			<p>下段文字のサイズ<input type="number">pt</p>
+			<p>文字の縦位置<input type="number">%</p>
+			<p>文字の横位置<input type="number">%</p>
 		</div>
+			
+		<!-- Tシャツ表示 -->
+		<div id="view-design">
+		</div>
+	
+		<div id="order-submit">
+			<h2>注文番号 : <input type="text">枚 <input type=submit value="注文確定"></h2>
+		</div>
+	
 	</div>
 	
 	
@@ -61,6 +63,6 @@ function ChangeBaseColor(){
 	</div>
 </div>
 
-<script type="module" src="scripts/designChange.js"></script>
+<script src="scripts/designChange.js"></script>
 </body>
 </html> 
