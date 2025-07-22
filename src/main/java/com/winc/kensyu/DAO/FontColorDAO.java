@@ -13,7 +13,7 @@ public class FontColorDAO {
 		
 		public List<FontColorDTO> getFontColorDTO() {
 	        List<FontColorDTO> list = new ArrayList<>();
-        String sql = "SELECT fontcolor_id, fontcolor_r, fontcolor_g, fontcolor_b, fontcolor_use_start, fontcolor_use_end FROM FONTCOLOR_TABLE";
+        String sql = "SELECT fontcolor_id, fontcolor_r, fontcolor_g, fontcolor_b, fontcolor_use_start, fontcolor_use_end FROM FONTCOLOR_TABLE where ? between fontcolor_use_start and fontcolor_use_end";
 
         try (Connection conn = DBAccess.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
@@ -21,7 +21,7 @@ public class FontColorDAO {
 
         	while (rs.next()) {
             	FontColorDTO dto = new FontColorDTO();
-            	dto.setFontColorId(rs.getString("fontcolor_id"));
+            	dto.setFontColorId(rs.getInt("fontcolor_id"));
                 dto.setFontColorR(rs.getInt("fontcolor_r"));
                 dto.setFontColorG(rs.getInt("fontcolor_g"));
                 dto.setFontColorB(rs.getInt("fontcolor_b"));

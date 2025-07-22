@@ -29,11 +29,9 @@ public class DesignDAO {
                 dto.setVerticalPosition(rs.getInt("vertical_position"));
                 dto.setSidePosition(rs.getInt("side_position"));
                 
-           
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-    
 	}
 }
