@@ -11,7 +11,7 @@ import com.winc.kensyu.DTO.OrderHistoryDTO;
 
 public class OrderHistoryDAO {
 	
-	public List<OrderHistoryDTO> getCompanyDTOl() {
+	public List<OrderHistoryDTO> getOrderHistoryDTO() {
         List<OrderHistoryDTO> list = new ArrayList<>();
         String sql = "SELECT order_code, user_id, order_date, order_count FROM ORDER_HISTORY_TABLE";
 
@@ -21,8 +21,8 @@ public class OrderHistoryDAO {
 
             while (rs.next()) {
             	OrderHistoryDTO dto = new OrderHistoryDTO();
-            	dto.setOrderCode(rs.getNString("order_code"));
-                dto.setUserId(rs.getNString("user_id"));
+            	dto.setOrderCode(rs.getString("order_code"));
+                dto.setUserId(rs.getString("user_id"));
                 dto.setOrderDate(rs.getDate("order_date"));
                 dto.setOrderCount(rs.getInt("order_count"));
                 list.add(dto);

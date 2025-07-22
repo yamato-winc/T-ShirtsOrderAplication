@@ -2,7 +2,7 @@ package com.winc.kensyu.DTO;
 
 public class DesignDTO {
 	private String orderCode;
-	private char baseColor;
+	private String baseColor;
 	private String Text1;
 	private int Text1Size;
 	private String Text1FontColorId;
@@ -16,10 +16,10 @@ public class DesignDTO {
 	public void setOrderCode(String orderCode) {
 		this.orderCode = orderCode;
 	}
-	public char getBaseColor() {
+	public String getBaseColor() {
 		return baseColor;
 	}
-	public void setBaseColor(char baseColor) {
+	public void setBaseColor(String baseColor) {
 		this.baseColor = baseColor;
 	}
 	public String getText1() {
