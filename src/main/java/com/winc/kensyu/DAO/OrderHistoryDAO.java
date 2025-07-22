@@ -13,7 +13,7 @@ public class OrderHistoryDAO {
 	
 	public List<OrderHistoryDTO> getOrderHistoryDTO() {
         List<OrderHistoryDTO> list = new ArrayList<>();
-        String sql = "SELECT order_code, user_id, order_date, order_count FROM ORDER_HISTORY_TABLE";
+        String sql = "SELECT order_code, user_id, order_date, order_count FROM ORDER_HISTORY_TABLE where user_id = ?";
 
         try (Connection conn = DBAccess.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
