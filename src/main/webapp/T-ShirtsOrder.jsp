@@ -6,19 +6,27 @@
 <meta charset="UTF-8">
 <title>Tシャツ注文システム</title>
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
-
-
 </head>
 <body style="margin: 0% 20%" onload="ChangeBaseColor()">
-<p>会社名：</p>
-<p>ユーザー：</p>
+<p id="display-user">会社名：</p>
+<p id="display-user">ユーザー：</p>
 
 <p id="tab-control">
 	<a href="#tab1">デザイン画面</a>
 	<a href="#tab2">注文履歴画面</a>
+	<a href="#login-tab hidden"></a>
 </p>
 
 <div id="tab-body">
+	<!------ ログイン画面 ------>
+	
+	<div class="tab" id="login-tab">
+		<h1>ログイン</h1>
+		<input type="text" id="input-id"><br>
+		<input type="text" id="input-password"><br>
+		<input type="submit" id="submit-login">
+	</div>
+
 	<!-- デザイン画面 -->
 	<div class="tab" id="tab1">
 		<h1 style="text-align:center;">Tシャツデザイン画面</h1>
@@ -49,14 +57,17 @@
 		<!-- Tシャツ表示 -->
 		<div id="view-design">
 		</div>
-			
+		<!-- 注文枚数、注文確定ボタン -->
 		<div id="order-submit">
-			<h2>注文番号 : <input type="text">枚 <input type=submit value="注文確定"></h2>
+			<h2>注文枚数 : <input type="text">枚 <input type=submit value="注文確定"></h2>
 		</div>
 	
 	</div>
 	
-	<!-- 注文履歴画面 -->
+	
+	
+	
+	<!------注文履歴画面------>
 	<div class="tab" id="tab2">
 		<h1 style="text-align:left;">注文履歴画面</h1>
 		<table id="history-table">
@@ -66,7 +77,7 @@
 			<th>枚数</th>
 			<th>デザイン</th>
 			</tr>
-			<%=  %> <!-- 表のHTMLが入った変数を入れる -->
+			<!-- 表のHTMLが入った変数を入れる -->
 		</table>
 	</div>
 </div>
