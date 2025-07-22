@@ -22,7 +22,8 @@ function moveCheck(){
 	}
 	
 	function logout(){
-		location.href = '../T-ShirtsOrder.jsp';
+		userID = null;
+		window.location.href = '../T-ShirtsOrder.jsp';
 	}
 	
 	setTimer();
@@ -36,8 +37,8 @@ function setUserID(str){
 
 function Filter(){
 	if(userID === null){
-		location.href = '../T-ShirtsOrder.jsp';
+		window.location.href = '../T-ShirtsOrder.jsp';
 	}else{
-		
+		window.location.href = '../T-ShirtsOrder.jsp';
 	}
 }
