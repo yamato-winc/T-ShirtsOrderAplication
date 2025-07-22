@@ -28,7 +28,7 @@ public class FontColorDAO {
                 dto.setFontColorUseStart(rs.getDate("fontcolor_use_start"));
                 dto.setFontColorUserEnd(rs.getDate("fontcolor_use_end"));
                 list.add(dto);
-        	} 
+        	}
            
         } catch (SQLException e) {
             e.printStackTrace();
