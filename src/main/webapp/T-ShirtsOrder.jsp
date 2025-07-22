@@ -7,25 +7,27 @@
 <title>Tシャツ注文システム</title>
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
 </head>
-<body style="margin: 0% 20%" onload="ChangeBaseColor()">
-<p id="display-user">会社名：</p>
-<p id="display-user">ユーザー：</p>
+<body style="margin: 0% 20%" onload="viewLoginPage()">
+<p class="display-user">会社名：</p>
+<p class="display-user">ユーザー：</p>
 
 <p id="tab-control">
 	<a href="#tab1">デザイン画面</a>
 	<a href="#tab2">注文履歴画面</a>
-	<a href="#login-tab hidden"></a>
 </p>
 
 <div id="tab-body">
+
+
 	<!------ ログイン画面 ------>
-	
 	<div class="tab" id="login-tab">
 		<h1>ログイン</h1>
-		<input type="text" id="input-id"><br>
-		<input type="text" id="input-password"><br>
-		<input type="submit" id="submit-login">
+		<input type="text" id="input-id" value="IDを入力してください。"><br>
+		<input type="text" id="input-password" value="パスワードを入力してください。"><br>
+		<input type="submit" id="submit-login" value="ログイン" onclick="changeTab()">
 	</div>
+
+
 
 	<!-- デザイン画面 -->
 	<div class="tab" id="tab1">
