@@ -21,7 +21,7 @@
 	<!------ ログイン画面 ------>
 	<div class="tab" id="login-tab">
 		<h1>ログイン</h1>
-		<form>
+		<form method="get" action="/loginServlet">
 		<input type="text" id="input-id" placeholder="IDを入力してください。"><br>
 		<input type="text" id="input-password" placeholder="パスワードを入力してください。"><br>
 		<input type="submit" id="submit-login" value="ログイン" onclick="changeTab()" >
