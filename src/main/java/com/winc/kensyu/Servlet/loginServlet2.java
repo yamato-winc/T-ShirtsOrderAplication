@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.winc.kensyu.DAO.DBAccess;
 import com.winc.kensyu.DAO.UserDAO;
@@ -37,32 +37,34 @@ public class loginServlet2 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json; charset=utf-8");
-		
+	    response.setContentType("text/html; charset=UTF-8");
+	    request.setCharacterEncoding("UTF-8");
+	    HttpSession session = request.getSession();
 		
 		try {
-			
+		
 			conn = DBAccess.getConnection();
 			UserDAO dao = new UserDAO();
 			String userID = request.getParameter("ID");
 			String pass = request.getParameter("pass");
+			System.out.println(pass);
 		
-			UserDTO dto = dao.getUSERDTO(conn, userID);
-		
+			UserDTO dto = dao.getUSERDTO(conn, "Tanaka@example");
 			if(dto == null) {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("../T-ShirtsOrder");
-				dispatcher.forward(request, response);
-			}
-			
-		
-		
+				System.out.println("ここ北代");
+				response.sendRedirect("T-ShirtsOrder.jsp");
+			}else {
+				System.out.println("nullではなかった");
 			if(pass.equals(dto.getUserPass())) {
 				String Json = convertToJson(dto);
-				request.setAttribute("userJson", Json);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("../T-ShirtsOrder");
-				dispatcher.forward(request, response);
+				session.setAttribute("userJson", Json);
+				System.out.println(Json);
+				response.sendRedirect("T-ShirtsOrder.jsp");
+				
+			}else {
+				System.out.println("pass違う");
+				response.sendRedirect("T-ShirtsOrder.jsp");
+			}
 			}
 			
 		}catch(Exception e) {
@@ -98,8 +100,6 @@ public class loginServlet2 extends HttpServlet {
 		return json.toString();
 		
 	}
-	
-	
-	
+
 
 }

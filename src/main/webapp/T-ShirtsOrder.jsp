@@ -21,11 +21,13 @@
 	<!------ ログイン画面 ------>
 	<div class="tab" id="login-tab">
 		<h1>ログイン</h1>
-		<form method="get" action="/loginServlet">
-		<input type="text" id="input-id" placeholder="IDを入力してください。"><br>
-		<input type="text" id="input-password" placeholder="パスワードを入力してください。"><br>
-		<input type="submit" id="submit-login" value="ログイン" onclick="changeTab()" >
+		<form method="get" action="./loginServlet2">
+		<input type="text" name="ID" id="input-id" placeholder="IDを入力してください。"><br>
+		<input type="text" name="pass" id="input-password" placeholder="パスワードを入力してください。"><br>
+		<% String json = (String)session.getAttribute("userJson");%>
+		<input type="submit" id="submit-login" value="ログイン">
 		</form>
+		<h3><%= json %></h3>
 	</div>
 
 
@@ -63,7 +65,7 @@
 			  <div class="color-swatch hidden" style="background-color: #a52a2a;" data-color="#a52a2a"></div>
 			</div>
 			<script>
-				const colorBox = document.getElementByID("color-box");
+				const colorBox = document.getElementById("color-box");
 				const swatches = document.querySelectorAll(".color-swatch");
 				const colorOptions = document.getElementById("color-options");
 				
