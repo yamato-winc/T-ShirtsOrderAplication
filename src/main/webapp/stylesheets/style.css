@@ -39,6 +39,33 @@
 #login-tab {
 	text-align:center;	
 }
+.color-swatch {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+
+
+    #color-box {
+      background-color: transparent;
+      border: 1px solid #999;
+      color: #000;
+    }
+
+
+    #color-options {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+	  gap: 5px;
+      width: max-content;
+      margin-bottom: 10px;
+    }
+
+
+    .hidden {
+      display: none;
+    }
+	
 
 /*
 **デザイン画面のstyle

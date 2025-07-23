@@ -1,7 +1,7 @@
-/*タブとページの取得*/
+/*タブとページとログインユーザーの表示の取得*/
  const tabs = document.getElementById('tab-control').getElementsByTagName('a');
  const pages = document.getElementById("tab-body").getElementsByClassName("tab");
- 
+ const displayUser = document.getElementsByClassName("display-user");
  
  //ページ表時
  function viewLoginPage(){
@@ -11,21 +11,24 @@
 	for(const tab of tabs) {
 		tab.style.display = "none";
 	}
-	const displayUser = document.getElementsByClassName("display-user");
 	for(const disp of displayUser) {
 		disp.style.display = "none";
 	}
 	pages[0].style.display = "block";
 }
-
-
  
  /*タブの切り替え処理*/
- function changeTab(index) {
-	/*href属性値からidを抜き出す*/
-	if(index === null){
-	const targetId = this.href.substring(this.href.indexOf("#")+1, this.href.length);
+ function changeTab() {
+	for(const tab of tabs) {
+		tab.style.display = "";
 	}
+	for(const disp of displayUser) {
+		disp.style.display = "";
+	}
+
+	/*href属性値からidを抜き出す*/
+	const targetId = this.href.substring(this.href.indexOf("#")+1, this.href.length);
+
 	/*指定ページの表示*/
 	for(let i = 0; i < pages.length; i++){
 		if(pages[i].id != targetId) {
@@ -34,6 +37,11 @@
 			pages[i].style.display = "block";
 		}
 	}
+	
+
+	
+	//ベースカラーの選択も行う
+	ChangeBaseColor();
 	
 	/*ページが遷移しないようにfalseを返す*/
 	return false;
