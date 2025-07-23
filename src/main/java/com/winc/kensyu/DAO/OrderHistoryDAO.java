@@ -11,16 +11,20 @@ import com.winc.kensyu.DTO.OrderHistoryDTO;
 import com.winc.kensyu.DTO.UserDTO;
 
 public class OrderHistoryDAO {
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
 	
-	public List<OrderHistoryDTO> getOrderHistoryDTO() {
+	public List<OrderHistoryDTO> getOrderHistoryDTO(Connection conn) {
         List<OrderHistoryDTO> list = new ArrayList<>();
         String sql = "SELECT orderhis.order_code, user_id, order_date, order_count, base_color,text1,text1_size,text1_fontcolor_id, text2, text2_size, text2fontcolor_id, vertical_position, side_position FROM ORDER_HISTORY_TABLE orderhis inner join DESIGN_TABLE design on orderhis.order_code = design.order_code where user_id = ? order by orderhis.order_code desc";
 
-        try (Connection conn = DBAccess.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)){
+        try {
         	 OrderHistoryDTO dto = new OrderHistoryDTO();
         	 UserDTO Udto = new UserDTO();
-        		stmt.setString(1,(Udto.getUserId()));
+        	 
+        	 stmt = conn.prepareStatement(sql);
+        	 
+        	 stmt.setString(1,(Udto.getUserId()));
              ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -50,4 +54,35 @@ public class OrderHistoryDAO {
 
         return list;
     }
+	
+	
+	public void setOrderHistoryDTO(Connection conn, OrderHistoryDTO orderDTO) {
+		String sql = "INSERT INTO ORDER_HISTORY_TABLE (ORDER_CODE, USER_ID, ORDER_DATE, ORDER_COUNT) VALUES(?, ?, CURRENT_TIMESTAMP,?)";
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, orderDTO.getOrderCode());
+			stmt.setString(2, orderDTO.getUserId());
+			stmt.setInt(3, orderDTO.getOrderCount());
+			
+			stmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(stmt != null) {
+					stmt.close();
+				}
+			}catch(SQLException e) {
+				System.out.println("objectのclose時に例外が発生");
+				e.printStackTrace();
+			}
+		}
+		
+	}
 }
