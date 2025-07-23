@@ -52,7 +52,7 @@ public class loginServlet2 extends HttpServlet {
 			String pass = request.getParameter("pass");
 			System.out.println(pass);
 		
-			UserDTO dto = dao.getUSERDTO(conn, "Tanaka@example", pass);
+			UserDTO dto = dao.getUSERDTO(conn, userID, pass);
 			if(dto == null) {
 //				System.out.println("ここ北代");
 				response.sendRedirect("T-ShirtsOrder.jsp");
