@@ -1,5 +1,6 @@
 /*タブとページとログインユーザーの表示の取得*/
  const tabs = document.getElementById('tab-control').getElementsByTagName('a');
+ const viewText = document.getElementById("viewText");
  const pages = document.getElementById("tab-body").getElementsByClassName("tab");
  const displayUser = document.getElementsByClassName("display-user");
  
@@ -16,7 +17,7 @@
 	}
 	pages[0].style.display = "block";
 }
- 
+
  /*タブの切り替え処理*/
  function changeTab() {
 	for(const tab of tabs) {
@@ -27,6 +28,7 @@
 	}
 
 	/*href属性値からidを抜き出す*/
+	if(this.href != undefined){
 	const targetId = this.href.substring(this.href.indexOf("#")+1, this.href.length);
 
 	/*指定ページの表示*/
@@ -37,22 +39,19 @@
 			pages[i].style.display = "block";
 		}
 	}
-	
-
-	
 	//ベースカラーの選択も行う
 	ChangeBaseColor();
 	
 	/*ページが遷移しないようにfalseを返す*/
 	return false;
-}
+}}
 
 for(let i=0; i<tabs.length; i++){
 	tabs[i].onclick = changeTab;
 }
 
 /*最初は先頭のタブを選択*/
-//tabs[1].onclick();
+tabs[0].onclick();
 
 /*ベースカラー変更*/
 function ChangeBaseColor(){
@@ -62,9 +61,68 @@ function ChangeBaseColor(){
 	viewDesign.innerHTML= "<img src=\"image/" + selectedColor + ".png\" alt=\"Tシャツの画像\" style=\"height:500px; width:500px;\">";
 }
 
+//ページにデザインを保存するための変数
+///////////////////////////////////////
+let text1;
+let text1Color;
+let text1Size;
+
+let text2;
+let text2Color;
+let text2Size;
+
+let verticalPosition;
+let sidePosition;
+////////////////////////////////////////
+
+//デザイン変更時の変数
+function ChangeDesign(){
+	text1 = document.getElementById("upper-text-input");
+	text1Color = document.getElementByName("text1_font_color")[0].value;
+	text1Size = document.getElementsByName("text1_size")[0].value;
+	
+	text2 = document.getElementById("lower-text-input");
+	text2Color = document.getElementsByName("text2_font_color")[0].value;
+	text2Size = document.getElementsByName("text2_size")[0].value;
+	
+	verticalPosition = document.getElementsByName("vertical_position");
+	sidePosition = document.getElementsByName("side_position");
+	
+	const upperText = document.createElement("p");
+	upperText.text = text1;
+	upperText.style.color = text1Color;
+	upperText.style.fontSize = text1Size;
+	viewText.appendChild(upperText);
+	
+	const lowerText = document.createElement("p");
+	lowerText.text = text2;
+	lowerText.style.color = text2Color;
+	lowerText.style.fontSize = text2Size;
+	viewText.appendChild(lowerText);
+	
+}
+
 //色の取得
 //const colorJson;
 //function getColor(){
 	//colorJson = JSON.parse(session.getAttribute("colorJson"));
 	//return colorJson;
 //}
+//テストカラー
+const testColor = ["#a52a2a","#808080","#ffc0cb","#800080","#ffa500"];
+const colorPalette = document.getElementsByClassName("color-palette");
+const selectTag = [colorPalette[0],colorPalette[1]];
+for(const colorCode of testColor){
+	for(const select of selectTag){
+	const color = document.createElement("option");
+	color.text = "■";
+	color.value = colorCode;
+	color.style.color = colorCode;
+	select.appendChild(color);
+};
+};
+
+//画面ロード時の初期設定
+function load(){
+	
+}
