@@ -3,6 +3,8 @@ package com.winc.kensyu.Servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winc.kensyu.DAO.DBAccess;
 import com.winc.kensyu.DAO.UserDAO;
 import com.winc.kensyu.DTO.UserDTO;
@@ -49,22 +52,21 @@ public class loginServlet2 extends HttpServlet {
 			String pass = request.getParameter("pass");
 			System.out.println(pass);
 		
-			UserDTO dto = dao.getUSERDTO(conn, "Tanaka@example");
+			UserDTO dto = dao.getUSERDTO(conn, "Tanaka@example", pass);
 			if(dto == null) {
 //				System.out.println("ここ北代");
 				response.sendRedirect("T-ShirtsOrder.jsp");
 			}else {
 //				System.out.println("nullではなかった");
-			if(pass.equals(dto.getUserPass())) {
-				String Json = convertToJson(dto);
+				
+				Map<String, String> map = getUserInfo(dto);
+				ObjectMapper objectMapper = new ObjectMapper();
+				String Json = objectMapper.writeValueAsString(map);
+				
 				session.setAttribute("userJson", Json);
+				
 //				System.out.println(Json);
 				response.sendRedirect("T-ShirtsOrder.jsp");
-				
-			}else {
-//				System.out.println("pass違う");
-				response.sendRedirect("T-ShirtsOrder.jsp");
-			}
 			}
 			
 		}catch(Exception e) {
@@ -90,15 +92,23 @@ public class loginServlet2 extends HttpServlet {
 
 	}
 	
-	private String convertToJson(UserDTO dto) {
-		StringBuilder json = new StringBuilder();
-		json.append("{");
-		json.append("\"User_Company\":").append(dto.getUserCompany()).append(",");
-		json.append("\"User_Name\":").append(dto.getUserName());
-		json.append("}");
-		
-		return json.toString();
-		
+//	private String convertToJson(UserDTO dto) {
+//		StringBuilder json = new StringBuilder();
+//		json.append("{");
+//		json.append("\"User_Company\":").append(dto.getUserCompany()).append(",");
+//		json.append("\"User_Name\":").append(dto.getUserName());
+//		json.append("}");
+//		
+//		return json.toString();
+//		
+//	}
+	
+	private Map<String, String> getUserInfo(UserDTO dto) {
+		Map<String, String> map = new HashMap<>();
+		map.put("User_Company", dto.getUserCompany());
+		map.put("User_Name", dto.getUserName());
+		System.out.print(map);
+		return map;
 	}
 
 
