@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +60,8 @@ public class getFontColorServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("colorJson", json);
 		
-		response.sendRedirect("T-ShirtsOrder.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("T-ShirtsOrder.jsp");
+		dispatcher.forward(request, response);
 		
 		/*response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
