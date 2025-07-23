@@ -61,3 +61,10 @@ function ChangeBaseColor(){
 	
 	viewDesign.innerHTML= "<img src=\"image/" + selectedColor + ".png\" alt=\"Tシャツの画像\" style=\"height:500px; width:500px;\">";
 }
+
+//色の取得
+//const colorJson;
+//function getColor(){
+	//colorJson = JSON.parse(session.getAttribute("colorJson"));
+	//return colorJson;
+//}
