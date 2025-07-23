@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,7 +56,9 @@ public class loginServlet2 extends HttpServlet {
 			UserDTO dto = dao.getUSERDTO(conn, userID, pass);
 			if(dto == null) {
 //				System.out.println("ここ北代");
-				response.sendRedirect("T-ShirtsOrder.jsp");
+				//response.sendRedirect("T-ShirtsOrder.jsp");
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/T-ShirtsOrder.jsp");
+				dispatcher.forward(request, response);
 			}else {
 //				System.out.println("nullではなかった");
 				
@@ -63,10 +66,16 @@ public class loginServlet2 extends HttpServlet {
 				ObjectMapper objectMapper = new ObjectMapper();
 				String Json = objectMapper.writeValueAsString(map);
 				
-				session.setAttribute("userJson", Json);
+				//session.setAttribute("userJson", Json);
 				
 //				System.out.println(Json);
-				response.sendRedirect("T-ShirtsOrder.jsp");
+				//response.sendRedirect("T-ShirtsOrder.jsp");
+				
+				request.setAttribute("userJson", Json);
+				
+				RequestDispatcher dispatcher= request.getRequestDispatcher("/T-ShirtsOrder.jsp");
+				dispatcher.forward(request, response);
+				
 			}
 			
 		}catch(Exception e) {
