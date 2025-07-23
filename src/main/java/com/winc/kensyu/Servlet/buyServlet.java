@@ -69,22 +69,22 @@ public class buyServlet extends HttpServlet {
 			}
 			
 			
-			String userID = request.getParameter("userID");
+			String userID = request.getParameter("user_id");
 			
-			String baseColor = request.getParameter("baseColor");
+			String baseColor = request.getParameter("base_color");
 			
-			String upperText = request.getParameter("upperText");
-			String upperColor = request.getParameter("color-option[data-color]");
-			Integer upperSize = Integer.parseInt(request.getParameter("upperSize"));
+			String text1 = request.getParameter("text1");
+			String text1Color = request.getParameter("text1_font_color");
+			Integer text1Size = Integer.parseInt(request.getParameter("text1_size"));
 			
-			String lowerText = request.getParameter("lowerText");
-			String lowerColor = request.getParameter("");
-			Integer lowerSize = Integer.parseInt(request.getParameter("lowerSize"));
+			String text2 = request.getParameter("text2");
+			String text2Color = request.getParameter("text2_font_color");
+			Integer text2Size = Integer.parseInt(request.getParameter("text2_size"));
 			
-			Integer textHeight = Integer.parseInt(request.getParameter("textHeight"));
-			Integer textWidth = Integer.parseInt(request.getParameter("textWidth"));
+			Integer vertical = Integer.parseInt(request.getParameter("vertical_position"));
+			Integer side = Integer.parseInt(request.getParameter("side_position"));
 			
-			Integer orderCount = Integer.parseInt(request.getParameter("orderCount"));
+			Integer orderCount = Integer.parseInt(request.getParameter("order_count"));
 			
 			//orderHistoryDTOに登録
 			orderDTO.setOrderCode(nextOrderCode);
@@ -97,16 +97,16 @@ public class buyServlet extends HttpServlet {
 			
 			designDTO.setBaseColor(baseColor);
 			
-			designDTO.setText1(upperText);
-			designDTO.setText1Size(upperSize);
-			designDTO.setText1FontColorId(upperColor);
+			designDTO.setText1(text1);
+			designDTO.setText1Size(text1Size);
+			designDTO.setText1FontColorId(text1Color);
 			
-			designDTO.setText2(lowerText);
-			designDTO.setText2Size(lowerSize);
-			designDTO.setText2FontColorId(lowerColor);
+			designDTO.setText2(text2);
+			designDTO.setText2Size(text2Size);
+			designDTO.setText2FontColorId(text2Color);
 			
-			designDTO.setVerticalPosition(textHeight);
-			designDTO.setSidePosition(textWidth);
+			designDTO.setVerticalPosition(vertical);
+			designDTO.setSidePosition(side);
 			
 			
 			designDAO.setDesignDTO(conn, designDTO);
