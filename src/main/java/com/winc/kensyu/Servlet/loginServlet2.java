@@ -51,18 +51,18 @@ public class loginServlet2 extends HttpServlet {
 		
 			UserDTO dto = dao.getUSERDTO(conn, "Tanaka@example");
 			if(dto == null) {
-				System.out.println("ここ北代");
+//				System.out.println("ここ北代");
 				response.sendRedirect("T-ShirtsOrder.jsp");
 			}else {
-				System.out.println("nullではなかった");
+//				System.out.println("nullではなかった");
 			if(pass.equals(dto.getUserPass())) {
 				String Json = convertToJson(dto);
 				session.setAttribute("userJson", Json);
-				System.out.println(Json);
+//				System.out.println(Json);
 				response.sendRedirect("T-ShirtsOrder.jsp");
 				
 			}else {
-				System.out.println("pass違う");
+//				System.out.println("pass違う");
 				response.sendRedirect("T-ShirtsOrder.jsp");
 			}
 			}

@@ -8,6 +8,7 @@
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
 </head>
 <body style="margin: 0% 20%" onload="changeTab()"> <!-- onloadで初期画面変更して -->
+
 <p class="display-user">会社名：</p>
 <p class="display-user">ユーザー：</p>
 
@@ -24,12 +25,9 @@
 		<form method="get" action="./loginServlet2">
 		<input type="text" name="ID" id="input-id" placeholder="IDを入力してください。"><br>
 		<input type="text" name="pass" id="input-password" placeholder="パスワードを入力してください。"><br>
-		<% String json = (String)session.getAttribute("userJson");%>
 		<input type="submit" id="submit-login" value="ログイン">
 		</form>
-		<h3><%= json %></h3>
 	</div>
-
 
 
 	<!-- デザイン画面 -->
