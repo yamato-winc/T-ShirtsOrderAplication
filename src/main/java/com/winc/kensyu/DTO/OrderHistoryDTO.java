@@ -1,6 +1,7 @@
 package com.winc.kensyu.DTO;
 
 import java.sql.Date;
+import java.lang.AutoCloseable;
 
 public class OrderHistoryDTO {
 	private String orderCode;

@@ -3,7 +3,7 @@ package com.winc.kensyu.DTO;
 import java.sql.Date;
 
 public class FontColorDTO {
-	private String fontColorId;
+	private int fontColorId;
 	private int fontColorR;
 	private int fontColorG;
 	private int fontColorB;
@@ -11,10 +11,10 @@ public class FontColorDTO {
 	private Date fontColorUserEnd;
 	
 	
-	public String getFontColorId() {
+	public int getFontColorId() {
 		return fontColorId;
 	}
-	public void setFontColorId(String fontColorId) {
+	public void setFontColorId(int fontColorId) {
 		this.fontColorId = fontColorId;
 	}
 	public int getFontColorR() {

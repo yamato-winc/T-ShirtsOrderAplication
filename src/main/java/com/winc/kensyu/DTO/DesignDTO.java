@@ -7,7 +7,10 @@ public class DesignDTO {
 	private int Text1Size;
 	private String Text1FontColorId;
 	private String Text2;
-	
+	private int Text2Size;
+	private String Text2FontColorId;
+	private int verticalPosition;
+	private int sidePosition;
 	
 	
 	public String getOrderCode() {
@@ -70,9 +73,6 @@ public class DesignDTO {
 	public void setSidePosition(int sidePosition) {
 		this.sidePosition = sidePosition;
 	}
-	private int Text2Size;
-	private String Text2FontColorId;
-	private int verticalPosition;
-	private int sidePosition;
+	
 	
 }

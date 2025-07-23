@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.winc.kensyu.DTO.DesignDTO;
+import com.winc.kensyu.DTO.OrderHistoryDTO;
 
 public class DesignDAO {
 	
@@ -14,10 +15,12 @@ public class DesignDAO {
         String sql = "SELECT order_code, base_color, text1, text1_size, text1_fontcolor_id, text2, text2_size, text2_fontcolor_id, vertical_position,side_position FROM DESIGN_TABLE where order_code = ?";
 
         try (Connection conn = DBAccess.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+             PreparedStatement stmt = conn.prepareStatement(sql)){
+        		OrderHistoryDTO Odto = new OrderHistoryDTO();
+        		stmt.setString(1, Odto.getOrderCode());
+             ResultSet rs = stmt.executeQuery();
 
-            	DesignDTO dto = new DesignDTO();
+        	DesignDTO dto = new DesignDTO();
             	dto.setOrderCode(rs.getString("order_code"));
                 dto.setBaseColor(rs.getString("base_color"));
                 dto.setText1(rs.getString("text1"));
@@ -28,12 +31,10 @@ public class DesignDAO {
                 dto.setText2FontColorId(rs.getString("text2_fontcolor_id"));
                 dto.setVerticalPosition(rs.getInt("vertical_position"));
                 dto.setSidePosition(rs.getInt("side_position"));
-                
-           
+        
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-    
 	}
 }
