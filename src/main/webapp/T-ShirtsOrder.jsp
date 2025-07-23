@@ -34,6 +34,7 @@
 	<div class="tab" id="tab1">
 		<h1 style="text-align:center;">Tシャツデザイン画面</h1>
 		<p>Tシャツのベースカラー</p>
+		<form action="" method="post">
 		<select id="base-color" onchange="ChangeBaseColor()">
 			<option value="White-T">白</option>
 			<option value="Gray-T">グレー</option>
@@ -117,6 +118,7 @@
 		<div id="order-submit">
 			<h2>注文枚数 : <input type="text">枚 <input type=submit value="注文確定"></h2>
 		</div>
+		</form>
 	</div>
 	
 	
