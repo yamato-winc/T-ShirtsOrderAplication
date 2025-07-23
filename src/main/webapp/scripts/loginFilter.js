@@ -31,6 +31,8 @@ function moveCheck(){
 	
 }
 
+あ
+
 function setUserID(str){
 	userID = str;
 }
