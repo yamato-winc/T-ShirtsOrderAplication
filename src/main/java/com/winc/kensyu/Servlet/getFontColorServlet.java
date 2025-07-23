@@ -10,10 +10,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winc.kensyu.DAO.FontColorDAO;
 import com.winc.kensyu.DTO.FontColorDTO;
-
 /**
  * Servlet implementation class getFontColorServlet
  */
@@ -25,7 +26,7 @@ public class getFontColorServlet extends HttpServlet {
      * @return 
      * @see HttpServlet#HttpServlet()
      */
-    public Map<Integer, String> getFontColorServlet() {
+    public Map<Integer, String> getfontColorServlet() {
         // TODO Auto-generated constructor stub
         
         FontColorDAO dao = new FontColorDAO();
@@ -42,7 +43,7 @@ public class getFontColorServlet extends HttpServlet {
         	map.put(fontColorId, RGB);
         	
         }
-        
+        System.out.println(map);
         return map;
     }
 
@@ -51,7 +52,20 @@ public class getFontColorServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		Map<Integer,String> fontColorMap = getfontColorServlet();
+		ObjectMapper objectMapper = new ObjectMapper();
+		String json = objectMapper.writeValueAsString(fontColorMap);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("json", json);
+		
+		/*response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		out.print(json);
+		out.flush();*/
+		
 	}
 
 }
