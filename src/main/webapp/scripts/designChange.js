@@ -92,6 +92,12 @@ function ChangeDesign(){
         const rgbValues1 = text1ColorSelect.value.split(',').map(v => parseInt(v.trim()));
         const brightness1 = (rgbValues1[0] * 299 + rgbValues1[1] * 587 + rgbValues1[2] * 114) / 1000;
         text1ColorSelect.style.color = brightness1 > 128 ? "black" : "white";
+        text1ColorSelect.style.fontWeight = "bold";
+    } else {
+        // 色が選択されていない場合はデフォルトに戻す
+        text1ColorSelect.style.backgroundColor = "white";
+        text1ColorSelect.style.color = "black";
+        text1ColorSelect.style.fontWeight = "normal";
     }
     
     text2 = document.getElementById("lower-text-input").value;
@@ -106,6 +112,12 @@ function ChangeDesign(){
         const rgbValues2 = text2ColorSelect.value.split(',').map(v => parseInt(v.trim()));
         const brightness2 = (rgbValues2[0] * 299 + rgbValues2[1] * 587 + rgbValues2[2] * 114) / 1000;
         text2ColorSelect.style.color = brightness2 > 128 ? "black" : "white";
+        text2ColorSelect.style.fontWeight = "bold";
+    } else {
+        // 色が選択されていない場合はデフォルトに戻す
+        text2ColorSelect.style.backgroundColor = "white";
+        text2ColorSelect.style.color = "black";
+        text2ColorSelect.style.fontWeight = "normal";
     }
     
     verticalPosition = document.getElementsByName("vertical_position")[0].value;
@@ -255,16 +267,33 @@ function getColor(){
 			//カラーパレットへセット
 			const colorPalette = document.getElementsByClassName("color-palette");
 			const selectTag = [colorPalette[0],colorPalette[1]];
+			
+			// 最初に「色を選択」オプションを追加
+			for(const select of selectTag){
+				if(select) {
+					const defaultOption = document.createElement("option");
+					defaultOption.text = "色を選択";
+					defaultOption.value = "";
+					defaultOption.style.color = "gray";
+					select.appendChild(defaultOption);
+				}
+			}
+			
+			// カラーオプションを追加
 			for(const rgb of colorMap.values()){
 				for(const select of selectTag){
-				const color = document.createElement("option");
-				color.text = "■";
-				color.value = rgb;
-				color.style.color = "rgb(" + rgb + ")";
-				select.appendChild(color);
-			};
-		};
-	})
+					if(select) {
+						const color = document.createElement("option");
+						color.text = "■";
+						color.value = rgb;
+						color.style.color = "rgb(" + rgb + ")";
+						color.style.backgroundColor = "rgb(" + rgb + ")";
+						color.style.fontWeight = "bold";
+						select.appendChild(color);
+					}
+				}
+			}
+		})
 }
 
 
