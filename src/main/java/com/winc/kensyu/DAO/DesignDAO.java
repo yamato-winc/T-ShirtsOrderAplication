@@ -28,10 +28,10 @@ public class DesignDAO {
                 dto.setBaseColor(rs.getString("base_color"));
                 dto.setText1(rs.getString("text1"));
                 dto.setText1Size(rs.getInt("text1_size"));
-                dto.setText1FontColorId(rs.getString("text1_fontcolor_id"));
+                dto.setText1FontColorId(rs.getInt("text1_fontcolor_id"));
                 dto.setText2(rs.getString("text2"));
                 dto.setText2Size(rs.getInt("text2_size"));
-                dto.setText2FontColorId(rs.getString("text2_fontcolor_id"));
+                dto.setText2FontColorId(rs.getInt("text2_fontcolor_id"));
                 dto.setVerticalPosition(rs.getInt("vertical_position"));
                 dto.setSidePosition(rs.getInt("side_position"));
         
@@ -55,7 +55,7 @@ public class DesignDAO {
 	}
 	
 	public boolean setDesignDTO(Connection conn, DesignDTO designDTO) {
-		String sql = "INSERT INTO DESIGN_TABLE(ORDER_CODE, BASE_COLOR, TEXT1, TEXT1_SIZE, TEXT1_FONTCOLOR, TEXT2, TEXT2_SIZE, TEXT2_FONTCOLOR, VERTICAL_POSITION, SIDE_POSITION) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO DESIGN_TABLE(ORDER_CODE, BASE_COLOR, TEXT1, TEXT1_SIZE, TEXT1_FONTCOLOR_ID, TEXT2, TEXT2_SIZE, TEXT2FONTCOLOR_ID, VERTICAL_POSITION, SIDE_POSITION) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			stmt = conn.prepareStatement(sql);
@@ -63,10 +63,10 @@ public class DesignDAO {
 			stmt.setString(2, designDTO.getBaseColor());
 			stmt.setString(3, designDTO.getText1());
 			stmt.setInt(4, designDTO.getText1Size());
-			stmt.setString(5, designDTO.getText1FontColorId());
+			stmt.setInt(5, designDTO.getText1FontColorId());
 			stmt.setString(6, designDTO.getText2());
 			stmt.setInt(7, designDTO.getText2Size());
-			stmt.setString(8, designDTO.getText2FontColorId());
+			stmt.setInt(8, designDTO.getText2FontColorId());
 			stmt.setInt(9, designDTO.getVerticalPosition());
 			stmt.setInt(10, designDTO.getSidePosition());
 			

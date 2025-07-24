@@ -43,7 +43,7 @@ public class buyServlet extends HttpServlet {
 		// TODO Auto-gene
 		OrderHistoryDTO orderDTO = new OrderHistoryDTO();
 		DesignDTO designDTO = new DesignDTO();
-		String sql = "VALUES NEXT VALUE FOR order_code_seq";
+		String sql = "VALUES NEXT VALUE FOR ORDER_CODE_SEQUENCE";
 		String nextOrderCode = null;
 		
 		try {
@@ -69,15 +69,17 @@ public class buyServlet extends HttpServlet {
 			
 			
 			String userID = request.getParameter("user_id");
-			
+			System.out.println(userID);
 			String baseColor = request.getParameter("base_color");
 			
 			String text1 = request.getParameter("text1");
-			String text1Color = request.getParameter("text1_font_color");
+			System.out.println(text1);
+			Integer text1Color = Integer.parseInt(request.getParameter("text1_font_color"));
 			Integer text1Size = Integer.parseInt(request.getParameter("text1_size"));
 			
 			String text2 = request.getParameter("text2");
-			String text2Color = request.getParameter("text2_font_color");
+			System.out.println(text2);
+			Integer text2Color = Integer.parseInt(request.getParameter("text2_font_color"));
 			Integer text2Size = Integer.parseInt(request.getParameter("text2_size"));
 			
 			Integer vertical = Integer.parseInt(request.getParameter("vertical_position"));

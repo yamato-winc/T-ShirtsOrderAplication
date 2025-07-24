@@ -10,6 +10,7 @@ var successUserId;
 var orderCount;
 
 var baseColor;
+let colorMap = new Map();
 
 var text1;
 var text1Color;
@@ -30,11 +31,23 @@ function ChangeBaseColor(){
 	viewDesign.innerHTML= "<img src=\"image/" + baseColor + ".png\" alt=\"Tシャツの画像\" style=\"height:500px; width:500px;\">";
 }
 
+function getKeyByValue(rgb) {
+	const value = rgb.replace(/^rgb\(|\)$/g, '');
+	console.log("比較元" + value);
+  for (let [key, val] of colorMap.entries()) {
+    console.log("比較対象" + val);
+    if (val === value) {
+	console.log("結果" + key);
+      return key;
+    }
+  }
+  return null; // 見つからなかった場合
+}
 
 function buy(){
+	console.log(verticalPosition + sidePosition);
 	if(confirm("注文を確定してよろしいですか。")){
-	orderCount = document.getElementsByName("order-count")[0];
-	console.log(orderCount);
+	orderCount = document.getElementsByName("order-count")[0].value;
 	
 	const params = new URLSearchParams();
 	params.append("user_id",successUserId);
@@ -42,11 +55,11 @@ function buy(){
 	params.append("base_color",baseColor);
 	params.append("text1",text1);
 	params.append("text1_size",text1Size);
-	params.append("text1_font_color",text1Color);
+	params.append("text1_font_color",getKeyByValue(text1Color));
 	params.append("text2",text2);
 	params.append("text2_size",text2Size);
-	params.append("text2_font_color",text2Color);
-	params.append("vertival_position",verticalPosition);
+	params.append("text2_font_color",getKeyByValue(text2Color));
+	params.append("vertical_position",verticalPosition);
 	params.append("side_position",sidePosition);
 	
 	fetch("./buyServlet",{
@@ -54,9 +67,9 @@ function buy(){
 	headers:{
 		"Content-Type":"application/x-www-form-urlencoded"
 	},
-	body:params.toString()
+	body:params
 	}).then(response => {
-		if(!response.ok){
+		if(response.ok){
 			changeToOrderHistory();
 		}else{
 			alert("注文の確定に失敗しました。");
@@ -66,43 +79,86 @@ function buy(){
 	};	
 }
 
-//デザイン変更時の変数
+//デザイン変更
 function ChangeDesign(){
-	text1 = document.getElementById("upper-text-input").value;
-//	text1Color = document.getElementsByName("text1_font_color")[0].value;
-	text1Color = "rgb(255,0,0)";
-	text1Size = document.getElementsByName("text1_size")[0].value;
-	
-	text2 = document.getElementById("lower-text-input").value;
-	//text2Color = document.getElementsByName("text2_font_color")[0].value;
-	text2Color = "rgb(0,255,0)";
-	text2Size = document.getElementsByName("text2_size")[0].value;
-	
-	verticalPosition = document.getElementsByName("vertical_position")[0].value;
-	sidePosition = document.getElementsByName("side_position")[0].value;
-	
-	const upperText = document.querySelector("#view-upper-text"); 
-	console.log(upperText);
-	upperText.innerHTML = `<p style="font-size:${text1Size}pt; color:${text1Color};">${text1}</p>`;
+    text1 = document.getElementById("upper-text-input").value;
+    text1Color = "rgb(173,39,133)";
+    text1Size = document.getElementsByName("text1_size")[0].value;
+    
+    text2 = document.getElementById("lower-text-input").value;
+    text2Color = "rgb(128,255,255)";
+    text2Size = document.getElementsByName("text2_size")[0].value;
+    
+    verticalPosition = document.getElementsByName("vertical_position")[0].value;
+    sidePosition = document.getElementsByName("side_position")[0].value;
+    
+    const upperText = document.querySelector("#view-upper-text"); 
+    const lowerText = document.querySelector("#view-lower-text");
+    const viewText = document.querySelector("#view-text");
 
-	const lowerText = document.querySelector("#view-lower-text");
-	console.log(lowerText);
-	lowerText.innerHTML =  `<p style="font-size:${text2Size}pt; color:${text2Color};">${text2}</p>`;
-	
-	const viewText = document.querySelector("#view-text");
-	let verticalTop = 480 - (verticalPosition * 1.35);
-	let verticalHeight = 300 - (-verticalPosition * 2);
-	
-	viewText.setAttribute("style", 
-  "position: absolute; " +
-  "top: " + verticalTop + "px; left: 270px; " +
-  "transform: translate(-50%, -50%); " +
-  "width: 400px; height: " + verticalHeight + "px; " +  // ← 固定サイズ追加
-  "overflow: hidden;" +              // ← 内容がはみ出す場合に切る
-  "white-space: nowrap;"
-);
+    // 上下のテキストを設定（空の場合は何も表示しない）
+    if (text1.trim() !== "") {
+        upperText.innerHTML = `<p style="font-size:${text1Size}pt; color:${text1Color};">${text1}</p>`;
+    } else {
+        upperText.innerHTML = "";
+    }
+    
+    if (text2.trim() !== "") {
+        lowerText.innerHTML = `<p style="font-size:${text2Size}pt; color:${text2Color};">${text2}</p>`;
+    } else {
+        lowerText.innerHTML = "";
+    }
+    
+    // 文字の存在状況を確認
+    const hasUpperText = text1.trim() !== "";
+    const hasLowerText = text2.trim() !== "";
+    
+    // 文字間隔をサイズに応じて調整
+    let textGap = 10;  // デフォルト間隔
+    if (hasUpperText && hasLowerText) {
+        // 両方の文字がある場合、文字サイズの平均に基づいて間隔を調整
+        const avgSize = (Number(text1Size) + Number(text2Size)) / 2;
+        textGap = Math.max(5, avgSize * 0.3);  // 最小5px、文字サイズの30%
+    }
+    
+    // 縦方向の位置計算（制限なし）
+    const basePositionY = 250;  // Tシャツの中央
+    const moveAmountY = basePositionY - (Number(verticalPosition) * 2);  // 2px/unit
+    
+    // 横方向の位置計算（制限なし）
+    const basePositionX = 270;  // デフォルトの左位置
+    const moveAmountX = basePositionX + (Number(sidePosition) * 2);  // 2px/unit（プラスで右へ）
+    
+    console.log("上段:", hasUpperText, "下段:", hasLowerText, "縦位置:", verticalPosition, "横位置:", sidePosition, "文字間隔:", textGap, "Y:", moveAmountY, "X:", moveAmountX);
+    
+    viewText.setAttribute("style", 
+        "position: absolute; " +
+        "top: " + moveAmountY + "px; " +
+        "left: " + moveAmountX + "px; " +
+        "transform: translate(-50%, -50%); " +
+        "width: 400px; " +
+        "height: auto; " +
+        "max-width: 500px; " +   // Tシャツの幅に制限
+        "max-height: 500px; " +  // Tシャツの高さに制限
+        "overflow: hidden; " +   // 枠外を見切る（縦横両方）
+        "display: flex; " +
+        "flex-direction: column; " +
+        "align-items: center; " +
+        "gap: " + textGap + "px; "  // 文字サイズに応じた間隔
+    );
+    
+    // Tシャツエリアでもクリッピングを設定（より確実に）
+    const viewDesign = document.querySelector(".view-design");
+    if (viewDesign) {
+        viewDesign.style.overflow = "hidden";
+        viewDesign.style.position = "relative";  // 子要素のクリッピングのため
+        viewDesign.style.width = "500px";       // 幅を明示的に指定
+        viewDesign.style.height = "500px";      // 高さを明示的に指定
+    }
 
-
+    // 個別のテキストブロックのスタイル
+    upperText.style.textAlign = "center";
+    lowerText.style.textAlign = "center";
 }
 
 function designReset(){
@@ -110,12 +166,12 @@ function designReset(){
 	
 	document.getElementById("upper-text-input").value = "";
 //	text1Color = document.getElementsByName("text1_font_color")[0].value;
-	text1Color = "rgb(255,0,0)";
+	text1Color = "rgb(173,39,133)";
 	document.getElementsByName("text1_size")[0].value = 24;
 	
 	document.getElementById("lower-text-input").value = "";
 	//text2Color = document.getElementsByName("text2_font_color")[0].value;
-	text2Color = "rgb(0,255,0)";
+	text2Color = "rgb(128,255,255)";
 	document.getElementsByName("text2_size")[0].value = 24;
 	
 	document.getElementsByName("vertical_position")[0].value = 0;
@@ -148,10 +204,7 @@ function getUser(){
 }
 
 //色の取得
-let colorMap = new Map();
-const colors = [];
 function getColor(){
-	console.log("getColor()始まった");
 	fetch("./getFontColorServlet")
 		.then(response => response.json())
 		.then(json => {
@@ -159,6 +212,7 @@ function getColor(){
 				const RGB = color.FontColor_R + "," + color.FontColor_G + "," + color.FontColor_B;
 				colorMap.set(color.FontColor_Id,RGB);
 			}
+			console.log(colorMap);
 			//カラーパレットへセット
 			const colorPalette = document.getElementsByClassName("color-palette");
 			const selectTag = [colorPalette[0],colorPalette[1]];
