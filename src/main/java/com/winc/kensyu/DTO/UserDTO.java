@@ -2,14 +2,24 @@ package com.winc.kensyu.DTO;
 
 import java.sql.Date;
 
-public class UserDTO {
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public class UserDTO {
+	
+	@JsonProperty("userID")
 	private String userId;
+	@JsonProperty("userPass")
 	private String userPass;
+	@JsonIgnore
 	private String userCompany;
+	@JsonProperty("userName")
 	private String userName;
+	@JsonIgnore
 	private String userPhonenumber;
+	@JsonIgnore
 	private Date submitUserDate;
+	@JsonIgnore
 	private Date updateUserDate;
 	
 	public String getUserId() {
