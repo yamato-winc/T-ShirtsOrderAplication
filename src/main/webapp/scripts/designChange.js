@@ -20,7 +20,7 @@
 }
 
  /*タブの切り替え処理*/
- function changeTab() {
+ /*function changeTab() {
 	for(const tab of tabs) {
 		tab.style.display = "";
 	}
@@ -29,11 +29,11 @@
 	}
 
 	/*href属性値からidを抜き出す*/
-	if(this.href != undefined){
+	/*if(this.href != undefined){
 	const targetId = this.href.substring(this.href.indexOf("#")+1, this.href.length);
 
 	/*指定ページの表示*/
-	for(let i = 0; i < pages.length; i++){
+/*	for(let i = 0; i < pages.length; i++){
 		if(pages[i].id != targetId) {
 			pages[i].style.display = "none";
 		}else{
@@ -42,8 +42,9 @@
 	}
 	
 	/*ページが遷移しないようにfalseを返す*/
-	return false;
+/*	return false;
 }}
+*/
 
 for(let i=0; i<tabs.length; i++){
 	tabs[i].onclick = changeTab;
@@ -115,19 +116,12 @@ function getUser(){
 }
 
 //色の取得
-let colorJson = [];
-const colors = [];
-function getColor(){
-	console.log("getColor()始まった");
-	fetch("getFontColorServlet")
-		.then(response => response.json())
-		.then(data => {
-			colorJson = data;
-			colors.push(data[value]);
-		})
-}
+
+
+
 
 //テストカラー
+/*
 const colorPalette = document.getElementsByClassName("color-palette");
 const selectTag = [colorPalette[0],colorPalette[1]];
 for(const colorCode of colors){
@@ -139,20 +133,46 @@ for(const colorCode of colors){
 	select.appendChild(color);
 };
 };
+*/
+
+function changeToOrderHistory(){
+	fetch("/orderHistoryServlet")
+		.then(response => {
+			if(!response.ok) throw new Error("通信エラー");
+			return response.json();
+		})
+		.then(data => {
+			
+		})
+}
+
+function changeTab(tabId) {
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => {
+    tab.classList.remove("active");
+  });
+  const activeTab = document.getElementById(tabId);
+  if (activeTab) {
+    activeTab.classList.add("active");
+  }
+}
+
 
 //画面ロード時の初期設定
 function load(){
 	//色の取得
-	getColor();
+//	getColor();
+	
+	changeTab("login-tab");
 	
 	//ベースカラーの選択も行う
 	ChangeBaseColor();
 	
 	/*setUserID(request.getAttribute("userId"));*/
-	setUserID("Tanaka@example");
+//	setUserID("Tanaka@example");
 	
 	//ログインユーザーの表示
-	getUser();
-	
-	orderCount.setAttribute("value", userID);
+//	getUser();
+	console.log("実行されたよ");
+//	orderCount.setAttribute("value", userID);
 }

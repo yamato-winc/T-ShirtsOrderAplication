@@ -12,19 +12,17 @@
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
 <script src="scripts/loginFilter.js"></script>
 </head>
-<body onload="load()"> <!-- onloadで初期画面変更して -->
+<body> <!-- onloadで初期画面変更して -->
 <div class="container">
 
 <p id="display-company"></p>
 <p id="display-user"></p>
 
-<div id="tab-control">
-	<form action="./orderHistoryServlet" method="get">
-	<input type="submit">
+<p id="tab-control">
 	<a href="#tab1">デザイン画面</a>
-	<a href="#tab2" onclick="submit()">注文履歴画面</a>
-	</form>
-</div>
+	<a onclick="changeToOrderHistory()">注文履歴画面</a>
+	<!-- href="#tab2" -->
+</p>
 
 <div id="tab-body">
 
@@ -142,6 +140,7 @@
 </div>
 
 <script src="scripts/designChange.js"></script>
+<script>load();</script>
 </div>
 </body>
 </html> 
