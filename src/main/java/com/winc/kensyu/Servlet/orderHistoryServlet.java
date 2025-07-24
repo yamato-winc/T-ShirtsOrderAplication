@@ -29,7 +29,8 @@ public class orderHistoryServlet extends HttpServlet {
 			con = DBAccess.getConnection();
 			//注文の履歴を取得getCompanyDAOlメソッドで注文履歴リストを取得
 			
-			String userId = (String)request.getAttribute("ID");
+			String userId = (String)request.getParameter("ID");
+			System.out.println("servlet" + userId);
 			OrderHistoryDAO dao = new OrderHistoryDAO();
 			List<OrderHistoryDTO> orderList = dao.getOrderHistoryDTO(con,userId);
 			

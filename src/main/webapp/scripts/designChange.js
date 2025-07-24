@@ -254,12 +254,14 @@ function getColor(){
 
 function changeToOrderHistory(){
 	try{
+	console.log(userID);
 	fetch("./orderHistoryServlet?ID=" + userID)
 		.then(response => {
 			if(!response.ok) throw new Error("通信エラー");
 			return response.text();
 		})
 		.then(html => {
+			console.log(html);
 			document.getElementById("history-table").innerHTML = html;		
 			changeTab("tab2");
 		})
@@ -267,6 +269,8 @@ function changeToOrderHistory(){
 		console.error("エラー",error);
 	}
 }
+
+
 
 function changeTab(tabId) {
   

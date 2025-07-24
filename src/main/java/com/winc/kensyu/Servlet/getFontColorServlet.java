@@ -41,13 +41,6 @@ public class getFontColorServlet extends HttpServlet {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(fontColorlist);
 		
-		//HttpSession session = request.getSession();
-		//session.setAttribute("colorJson", json);
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("T-ShirtsOrder.jsp");
-		//dispatcher.forward(request, response);
-		//response.setCharacterEncoding("UTF-8");
-		
-		
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		out.print(json);
