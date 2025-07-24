@@ -57,15 +57,14 @@ import com.winc.kensyu.DTO.UserDTO;
 		    }
 		    
 		    // 検索取得
-		    public UserDTO getUSERDTO(Connection conn, String userID, String pass) {
+		    public UserDTO getUSERDTO(Connection conn, String userID) {
 		        
-		        String sql = "SELECT user_id, user_pass, user_company, user_name, user_phonenumber, submit_user_date, update_user_date FROM USER_TABLE WHERE user_id = ? AND user_pass = ?";
+		        String sql = "SELECT user_id, user_pass, user_company, user_name, user_phonenumber, submit_user_date, update_user_date FROM USER_TABLE WHERE user_id = ?";
 		        
 
 		        try{
 		        	stmt = conn.prepareStatement(sql);
 		        	stmt.setString(1, userID);
-		        	stmt.setString(2, pass);
 		        	rs = stmt.executeQuery();
 		        	
 		        	

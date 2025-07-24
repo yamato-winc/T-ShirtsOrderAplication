@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,13 +48,19 @@ public class loginServlet2 extends HttpServlet {
 			String pass = request.getParameter("pass");
 //			System.out.println(pass);
 		
-			UserDTO dto = dao.getUSERDTO(conn, userID, pass);
+			UserDTO dto = dao.getUSERDTO(conn, userID);
 			
 			if(dto == null) {
+				response.setStatus(404);
+			}
+			else if(!userID.contains("@")) {
+				response.setStatus(400);
+			}
+			else if(!dto.getUserPass().equals(pass)) {
 //				System.out.println("ここ北代");
-				RequestDispatcher dispatcher= request.getRequestDispatcher("/T-ShirtsOrder.jsp");
-				dispatcher.forward(request, response);
-			}else {
+				response.setStatus(403);
+			}
+			else {
 //				System.out.println("nullではなかった");
 //				List<UserDTO> list = new ArrayList<>();
 //				list.add(dto);
