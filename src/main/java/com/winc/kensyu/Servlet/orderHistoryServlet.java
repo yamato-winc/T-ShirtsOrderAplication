@@ -32,7 +32,7 @@ public class orderHistoryServlet extends HttpServlet {
 			List<OrderHistoryDTO> orderList = dao.getOrderHistoryDTO(con,"Tanaka@example");
 			
 			request.setAttribute("orderList", orderList);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("T-ShirtsOrder.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("orderHistory.jsp");
 			//ページ遷移
 			dispatcher.forward(request, response);
 		} catch (SQLException e) {
