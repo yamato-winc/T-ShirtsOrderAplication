@@ -1,17 +1,16 @@
 package com.winc.kensyu.Servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winc.kensyu.DAO.FontColorDAO;
@@ -57,18 +56,19 @@ public class getFontColorServlet extends HttpServlet {
 		ObjectMapper objectMapper = new ObjectMapper();
 		String json = objectMapper.writeValueAsString(fontColorMap);
 		
-		HttpSession session = request.getSession();
-		session.setAttribute("colorJson", json);
+		//HttpSession session = request.getSession();
+		//session.setAttribute("colorJson", json);
+		//System.out.println(json);
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("T-ShirtsOrder.jsp");
+		//dispatcher.forward(request, response);
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("T-ShirtsOrder.jsp");
-		dispatcher.forward(request, response);
-		
-		/*response.setContentType("application/json");
+		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
+//		response.getWriter().write(json);
 		PrintWriter out = response.getWriter();
 		out.print(json);
-		out.flush();*/
+		out.flush();
 		
 	}
 

@@ -3,6 +3,7 @@
  const viewText = document.getElementById("viewText");
  const pages = document.getElementById("tab-body").getElementsByClassName("tab");
  const displayUser = document.getElementsByClassName("display-user");
+ const orderCount = document.getElementsByName("user-id")[0];
  
  //ページ表時
  function viewLoginPage(){
@@ -39,8 +40,6 @@
 			pages[i].style.display = "block";
 		}
 	}
-	//ベースカラーの選択も行う
-	ChangeBaseColor();
 	
 	/*ページが遷移しないようにfalseを返す*/
 	return false;
@@ -102,17 +101,36 @@ function ChangeDesign(){
 	
 }
 
+//ユーザー情報の取得
+function getUser(){
+		console.log("getUser()始まった");
+		fetch("loginServlet2")
+		.then(response => response.json())
+		.then(data => {
+			const company = document.getElementById("display-company");
+			const user = document.getElementById("display-user");
+			company.innerText = "会社名：" + data["User_Company"];
+			user.innerText = "ユーザー：" + data["User_Name"];
+		})
+}
+
 //色の取得
-//const colorJson;
-//function getColor(){
-	//colorJson = JSON.parse(session.getAttribute("colorJson"));
-	//return colorJson;
-//}
+let colorJson = [];
+const colors = [];
+function getColor(){
+	console.log("getColor()始まった");
+	fetch("getFontColorServlet")
+		.then(response => response.json())
+		.then(data => {
+			colorJson = data;
+			colors.push(data[value]);
+		})
+}
+
 //テストカラー
-const testColor = ["#a52a2a","#808080","#ffc0cb","#800080","#ffa500"];
 const colorPalette = document.getElementsByClassName("color-palette");
 const selectTag = [colorPalette[0],colorPalette[1]];
-for(const colorCode of testColor){
+for(const colorCode of colors){
 	for(const select of selectTag){
 	const color = document.createElement("option");
 	color.text = "■";
@@ -124,5 +142,17 @@ for(const colorCode of testColor){
 
 //画面ロード時の初期設定
 function load(){
+	//色の取得
+	getColor();
 	
+	//ベースカラーの選択も行う
+	ChangeBaseColor();
+	
+	/*setUserID(request.getAttribute("userId"));*/
+	setUserID("Tanaka@example");
+	
+	//ログインユーザーの表示
+	getUser();
+	
+	orderCount.setAttribute("value", userID);
 }

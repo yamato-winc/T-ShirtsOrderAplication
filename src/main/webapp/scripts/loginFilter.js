@@ -1,4 +1,4 @@
-let userID = null;
+var userID = null;
 
 function moveCheck(){
 	const sec  = 1800;
@@ -30,8 +30,6 @@ function moveCheck(){
 	setEvents(resetTimer);
 	
 }
-
-あ
 
 function setUserID(str){
 	userID = str;

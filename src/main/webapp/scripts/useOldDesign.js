@@ -29,3 +29,4 @@ function useOldDesign(design) {
   if (typeof renderDesign === 'function') {
     renderDesign(); // デザイン描画関数
   }
+}

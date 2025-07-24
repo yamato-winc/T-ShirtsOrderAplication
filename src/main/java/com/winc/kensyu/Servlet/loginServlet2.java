@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.winc.kensyu.DAO.DBAccess;
@@ -43,10 +42,8 @@ public class loginServlet2 extends HttpServlet {
 		// TODO Auto-generated method stub
 	    response.setContentType("text/html; charset=UTF-8");
 	    request.setCharacterEncoding("UTF-8");
-	    HttpSession session = request.getSession();
 		
 		try {
-		
 			conn = DBAccess.getConnection();
 			UserDAO dao = new UserDAO();
 			String userID = request.getParameter("ID");
@@ -62,7 +59,7 @@ public class loginServlet2 extends HttpServlet {
 			}else {
 //				System.out.println("nullではなかった");
 				
-				Map<String, String> map = getUserInfo(dto);
+				Map<String, String> map = getUserInfo(dto, userID);
 				ObjectMapper objectMapper = new ObjectMapper();
 				String Json = objectMapper.writeValueAsString(map);
 				
@@ -71,10 +68,16 @@ public class loginServlet2 extends HttpServlet {
 //				System.out.println(Json);
 				//response.sendRedirect("T-ShirtsOrder.jsp");
 				
-				request.setAttribute("userJson", Json);
+//				request.setAttribute("userJson", Json);
+				request.setAttribute("userId", userID);
 				
-				RequestDispatcher dispatcher= request.getRequestDispatcher("/T-ShirtsOrder.jsp");
-				dispatcher.forward(request, response);
+//				RequestDispatcher dispatcher= request.getRequestDispatcher("/T-ShirtsOrder.jsp");
+//				dispatcher.forward(request, response);
+				
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				
+				response.getWriter().write(Json);
 				
 			}
 			
@@ -112,10 +115,11 @@ public class loginServlet2 extends HttpServlet {
 //		
 //	}
 	
-	private Map<String, String> getUserInfo(UserDTO dto) {
+	private Map<String, String> getUserInfo(UserDTO dto,String userID) {
 		Map<String, String> map = new HashMap<>();
 		map.put("User_Company", dto.getUserCompany());
 		map.put("User_Name", dto.getUserName());
+		map.put("userId",userID);
 		System.out.print(map);
 		return map;
 	}
