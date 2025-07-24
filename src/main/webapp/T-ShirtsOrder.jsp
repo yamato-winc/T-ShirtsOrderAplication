@@ -12,16 +12,15 @@
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
 <script src="scripts/loginFilter.js"></script>
 </head>
-<body> <!-- onloadで初期画面変更して -->
+<body onload="load()"> <!-- onloadで初期画面変更して -->
 <div class="container">
 
 <p id="display-company"></p>
 <p id="display-user"></p>
 
 <p id="tab-control">
-	<a href="#tab1">デザイン画面</a>
+	<a onclick="changeTab('tab1')">デザイン画面</a>
 	<a onclick="changeToOrderHistory()">注文履歴画面</a>
-	<!-- href="#tab2" -->
 </p>
 
 <div id="tab-body">
@@ -85,62 +84,15 @@
 	
 	
 	<!------注文履歴画面------>
-<!------注文履歴画面------>
 	<div class="tab" id="tab2">
 		<h1 style="text-align:left;">注文履歴画面</h1>
 		<table id="history-table">
-			<tr>
-			<th>注文番号</th>
-			<th>注文日</th>
-			<th>枚数</th>
-			<th>入力情報</th>
-			<th>デザイン</th>
-			</tr>
-			<!-- 表のHTMLが入った変数を入れる -->
-			
-			
-			 <% if((List<OrderHistoryDTO>)request.getAttribute("orderList") != null){
-			 	List<OrderHistoryDTO> list = (List<OrderHistoryDTO>)request.getAttribute("orderList");
-			 	System.out.println(list);
-			 	for(OrderHistoryDTO ohdto:list ){%>
-			 		<tr>
-			 			<td>
-			 				<%= ohdto.getOrderCode() %>
-			 			</td>
-			 			
-			 			<td>
-			 				<%= ohdto.getOrderDate()%>
-			 			</td>
-			 				
-			 			<td>
-			 				<%= ohdto.getOrderCount()%>
-			 			</td>
-			 			
-			 			<td>
-			 				上段:<%= ohdto.getText1() %><br>
-			 				下段:<%= ohdto.getText2() %><br>
-			 				ベースカラー:<%= ohdto.getBaseColor() %><br>
-			 				フォントサイズ:上段<%= ohdto.getText1() %>
-			 							  :下段<%= ohdto.getText2() %><br>
-			 				横位置:<%= ohdto.getSidePosition() %><br>
-			 				縦位置:<%= ohdto.getVerticalPosition() %><br>
-			 			</td>
-			 			
-			 			<td>
-			 			
-			 			</td>
-			 			
-			 		</tr>
-			 		
-			 <%
-			 	}}
-			 %>
+		
 		</table>
 	</div>
 </div>
 
 <script src="scripts/designChange.js"></script>
-<script>load();</script>
 </div>
 </body>
 </html> 

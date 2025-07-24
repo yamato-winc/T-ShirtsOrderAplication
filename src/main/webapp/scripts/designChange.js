@@ -1,5 +1,5 @@
 /*タブとページとログインユーザーの表示の取得*/
- const tabs = document.getElementById('tab-control').getElementsByTagName('a');
+// const tabs = document.getElementById('tab-control').getElementsByTagName('a');
  const viewText = document.getElementById("viewText");
  const pages = document.getElementById("tab-body").getElementsByClassName("tab");
  const displayUser = document.getElementsByClassName("display-user");
@@ -117,7 +117,17 @@ function getUser(){
 
 //色の取得
 
-
+//let colorJson = [];
+//const colors = [];
+//function getColor(){
+	//console.log("getColor()始まった");
+	//fetch("getFontColorServlet")
+	//	.then(response => response.json())
+		//.then(data => {
+		//	colorJson = data;
+	//		colors.push(data[]);
+		//})
+//}
 
 
 //テストカラー
@@ -136,14 +146,19 @@ for(const colorCode of colors){
 */
 
 function changeToOrderHistory(){
-	fetch("/orderHistoryServlet")
+	try{
+	fetch("./orderHistoryServlet")
 		.then(response => {
 			if(!response.ok) throw new Error("通信エラー");
-			return response.json();
+			return response.text();
 		})
-		.then(data => {
-			
+		.then(html => {
+			document.getElementById("history-table").innerHTML = html;		
+			changeTab("tab2");
 		})
+	}catch(error){
+		console.error("エラー",error);
+	}
 }
 
 function changeTab(tabId) {

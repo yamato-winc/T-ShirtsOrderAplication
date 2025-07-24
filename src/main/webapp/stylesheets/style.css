@@ -53,7 +53,13 @@ html, body {
 }
 /*タブの中身を表示する*/
 .tab{
-	border: 1px solid black;
+	display:none;
+
+}
+
+.tab.active {
+  display: block;
+  	border: 1px solid black;
 	margin-top: -16px;
 	padding: 1em;
 	background-color:white;
