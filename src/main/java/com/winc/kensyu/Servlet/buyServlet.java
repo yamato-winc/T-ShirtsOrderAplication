@@ -72,16 +72,13 @@ public class buyServlet extends HttpServlet {
 			
 			
 			String userID = request.getParameter("user_id");
-			System.out.println(userID);
 			String baseColor = request.getParameter("base_color");
 			
 			String text1 = request.getParameter("text1");
-			System.out.println(text1);
 			Integer text1Color = Integer.parseInt(request.getParameter("text1_font_color"));
 			Integer text1Size = Integer.parseInt(request.getParameter("text1_size"));
 			
 			String text2 = request.getParameter("text2");
-			System.out.println(text2);
 			Integer text2Color = Integer.parseInt(request.getParameter("text2_font_color"));
 			Integer text2Size = Integer.parseInt(request.getParameter("text2_size"));
 			
