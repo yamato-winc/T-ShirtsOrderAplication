@@ -35,6 +35,14 @@ public class orderHistoryServlet extends HttpServlet {
 			List<OrderHistoryDTO> orderList = dao.getOrderHistoryDTO(con,userId);
 			
 			request.setAttribute("orderList", orderList);
+			for(OrderHistoryDTO ohdto:orderList) {
+				String font1Id = ohdto.getText1FontColorId();
+				String font2Id = ohdto.getText2FontColorId();
+				
+			};
+			
+			request.setAttribute("fontList", );
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("orderHistory.jsp");
 			//ページ遷移
 			dispatcher.forward(request, response);
