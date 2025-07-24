@@ -1,10 +1,11 @@
 package com.winc.kensyu.Servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,36 +49,25 @@ public class loginServlet2 extends HttpServlet {
 			UserDAO dao = new UserDAO();
 			String userID = request.getParameter("ID");
 			String pass = request.getParameter("pass");
-			System.out.println(pass);
+//			System.out.println(pass);
 		
 			UserDTO dto = dao.getUSERDTO(conn, userID, pass);
+			
 			if(dto == null) {
 //				System.out.println("ここ北代");
-				//response.sendRedirect("T-ShirtsOrder.jsp");
 				RequestDispatcher dispatcher= request.getRequestDispatcher("/T-ShirtsOrder.jsp");
 				dispatcher.forward(request, response);
 			}else {
 //				System.out.println("nullではなかった");
-				
-				Map<String, String> map = getUserInfo(dto, userID);
+				List<UserDTO> list = new ArrayList<>();
+				list.add(dto);
 				ObjectMapper objectMapper = new ObjectMapper();
-				String Json = objectMapper.writeValueAsString(map);
-				
-				//session.setAttribute("userJson", Json);
-				
-//				System.out.println(Json);
-				//response.sendRedirect("T-ShirtsOrder.jsp");
-				
-//				request.setAttribute("userJson", Json);
-				request.setAttribute("userId", userID);
-				
-//				RequestDispatcher dispatcher= request.getRequestDispatcher("/T-ShirtsOrder.jsp");
-//				dispatcher.forward(request, response);
+				String Json = objectMapper.writeValueAsString(list);
 				
 				response.setContentType("application/json");
-				response.setCharacterEncoding("UTF-8");
-				
-				response.getWriter().write(Json);
+				PrintWriter out = response.getWriter();
+				out.print(Json);
+				out.flush();
 				
 			}
 			
@@ -115,14 +105,14 @@ public class loginServlet2 extends HttpServlet {
 //		
 //	}
 	
-	private Map<String, String> getUserInfo(UserDTO dto,String userID) {
-		Map<String, String> map = new HashMap<>();
-		map.put("User_Company", dto.getUserCompany());
-		map.put("User_Name", dto.getUserName());
-		map.put("userId",userID);
-		System.out.print(map);
-		return map;
-	}
+//	private Map<String, String> getUserInfo(UserDTO dto,String userID) {
+//		Map<String, String> map = new HashMap<>();
+//		map.put("User_Company", dto.getUserCompany());
+//		map.put("User_Name", dto.getUserName());
+//		map.put("userId",userID);
+//		System.out.print(map);
+//		return map;
+//	}
 
 
 }
