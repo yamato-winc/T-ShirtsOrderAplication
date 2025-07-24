@@ -102,12 +102,34 @@ html, body {
 **ここから注文履歴のstyle
 */
 #history-table {
-	border-collapse: collapse;
-	border:0.5px solid ;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-#history-table th{
-	border:0.5px solid
+#history-table th, #history-table td {
+  border: 1px solid #ddd;
+  padding: 12px 14px;
+  text-align: left;
 }
-#history-table td{
-	border:0.5px solid
+#history-table th {
+  background-color: #FFB6C1; /* ライトピンク */
+  color: #333;
+  font-weight: bold;
+}
+#history-table tr:nth-child(even) {
+  background-color: #00FFFF;  /* シアン */
+}
+#history-table tr:hover {
+  background-color: #FFF9D9;
+  transition: background-color 0.2s ease;
+}
+/* 登録直後の強調用クラス（例：サーバー側で付与） */
+#history-table tr.highlight {
+  background-color: #E3FCE3 !important; /* ミントグリーン */
+  font-weight: bold;
+  color: #2F6F3E;
 }

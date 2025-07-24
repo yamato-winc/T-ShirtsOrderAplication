@@ -1,5 +1,5 @@
 /*タブとページとログインユーザーの表示の取得*/
-// const tabs = document.getElementById('tab-control').getElementsByTagName('a');
+ const aTabs = document.getElementById('tab-control').getElementsByTagName('a');
  const viewText = document.getElementById("viewText");
  const pages = document.getElementById("tab-body").getElementsByClassName("tab");
  const displayUser = document.getElementsByClassName("display-user");
@@ -58,13 +58,18 @@ function ChangeDesign(){
 //ユーザー情報の取得
 function getUser(){
 		console.log("getUser()始まった");
-		fetch("./loginServlet2")
+		const id = document.getElementById("input-id").value;
+		console.log(id);
+		const pass = document.getElementById("input-password").value;
+		console.log(pass);
+		fetch("./loginServlet2?ID=" + id + "&pass=" + pass)
 		.then(response => response.json())
 		.then(json => {
 			const company = document.getElementById("display-company");
 			const user = document.getElementById("display-user");
 			company.innerText = "会社名：" + json.userCompany;
 			user.innerText = "ユーザー：" + json.userName;
+			changeTab("tab1");
 		})
 }
 
@@ -132,12 +137,12 @@ function load(){
 //	getColor();
 	
 	//ユーザーとタブの表示を消す
-	for(const tab of tabs) {
-		tab.style.display = "none";
-	}
-	for(const disp of displayUser) {
-		disp.style.display = "none";
-	}
+//	for(const tab of aTabs) {
+//		tab.style.display = "none";
+//	}
+//	for(const disp of displayUser) {
+//		disp.style.display = "none";
+//	}
 	
 	changeTab("login-tab");
 	
