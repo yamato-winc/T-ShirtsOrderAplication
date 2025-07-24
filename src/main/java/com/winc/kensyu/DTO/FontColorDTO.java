@@ -6,13 +6,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class FontColorDTO {
-	@JsonProperty("fontColor_Id")
+	@JsonProperty("FontColor_Id")
 	private int fontColorId;
-	@JsonProperty("fontColor_R")
+	@JsonProperty("FontColor_R")
 	private int fontColorR;
-	@JsonProperty("fontColor_G")
+	@JsonProperty("FontColor_G")
 	private int fontColorG;
-	@JsonProperty("fontColor_B")
+	@JsonProperty("FontColor_B")
 	private int fontColorB;
 	@JsonIgnore
 	private Date fontColorUseStart;
