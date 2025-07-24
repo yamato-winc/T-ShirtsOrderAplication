@@ -2,19 +2,21 @@ package com.winc.kensyu.DTO;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class FontColorDTO {
-	@JsonProperty("fontColorId")
+	@JsonProperty("fontColor_Id")
 	private int fontColorId;
-	@JsonProperty("fontColorR")
+	@JsonProperty("fontColor_R")
 	private int fontColorR;
-	@JsonProperty("fontColorG")
+	@JsonProperty("fontColor_G")
 	private int fontColorG;
-	@JsonProperty("fontColorB")
+	@JsonProperty("fontColor_B")
 	private int fontColorB;
-	
+	@JsonIgnore
 	private Date fontColorUseStart;
+	@JsonIgnore
 	private Date fontColorUserEnd;
 	
 	
