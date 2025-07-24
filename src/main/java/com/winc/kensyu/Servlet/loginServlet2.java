@@ -47,32 +47,36 @@ public class loginServlet2 extends HttpServlet {
 			String userID = request.getParameter("ID");
 			String pass = request.getParameter("pass");
 //			System.out.println(pass);
-		
-			UserDTO dto = dao.getUSERDTO(conn, userID);
 			
-			if(dto == null) {
-				response.setStatus(404);
-			}
-			else if(!userID.contains("@")) {
+			if(!userID.contains("@")) {
 				response.setStatus(400);
 			}
-			else if(!dto.getUserPass().equals(pass)) {
-//				System.out.println("ここ北代");
-				response.setStatus(403);
-			}
 			else {
-//				System.out.println("nullではなかった");
-//				List<UserDTO> list = new ArrayList<>();
-//				list.add(dto);
-				ObjectMapper objectMapper = new ObjectMapper();
-				String Json = objectMapper.writeValueAsString(dto);
+				UserDTO dto = dao.getUSERDTO(conn, userID);
 				
-				response.setContentType("application/json");
-				PrintWriter out = response.getWriter();
-				out.print(Json);
-				out.flush();
+				if(dto == null) {
+					response.setStatus(404);
+				}
+			
+				else if(!dto.getUserPass().equals(pass)) {
+//					System.out.println("ここ北代");
+					response.setStatus(403);
+				}
+				else {
+//					System.out.println("nullではなかった");
+//					List<UserDTO> list = new ArrayList<>();
+//					list.add(dto);
+					ObjectMapper objectMapper = new ObjectMapper();
+					String Json = objectMapper.writeValueAsString(dto);
 				
+					response.setContentType("application/json");
+					PrintWriter out = response.getWriter();
+					out.print(Json);
+					out.flush();
+				
+				}
 			}
+			
 			
 		}catch(Exception e) {
 			
