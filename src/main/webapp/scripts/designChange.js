@@ -81,12 +81,32 @@ function buy(){
 //デザイン変更
 function ChangeDesign(){
     text1 = document.getElementById("upper-text-input").value;
-    text1Color = "rgb(173,39,133)";
+    const text1ColorSelect = document.getElementsByName("text1_font_color")[0];
+    text1Color = text1ColorSelect.value ? "rgb(" + text1ColorSelect.value + ")" : "rgb(0,0,0)";
     text1Size = document.getElementsByName("text1_size")[0].value;
     
+    // 上段セレクトボックスの背景色を選択中の色に変更
+    if (text1ColorSelect.value) {
+        text1ColorSelect.style.backgroundColor = "rgb(" + text1ColorSelect.value + ")";
+        // コントラストのため文字色も調整
+        const rgbValues1 = text1ColorSelect.value.split(',').map(v => parseInt(v.trim()));
+        const brightness1 = (rgbValues1[0] * 299 + rgbValues1[1] * 587 + rgbValues1[2] * 114) / 1000;
+        text1ColorSelect.style.color = brightness1 > 128 ? "black" : "white";
+    }
+    
     text2 = document.getElementById("lower-text-input").value;
-    text2Color = "rgb(128,255,255)";
+    const text2ColorSelect = document.getElementsByName("text2_font_color")[0];
+    text2Color = text2ColorSelect.value ? "rgb(" + text2ColorSelect.value + ")" : "rgb(0,0,0)";
     text2Size = document.getElementsByName("text2_size")[0].value;
+    
+    // 下段セレクトボックスの背景色を選択中の色に変更
+    if (text2ColorSelect.value) {
+        text2ColorSelect.style.backgroundColor = "rgb(" + text2ColorSelect.value + ")";
+        // コントラストのため文字色も調整
+        const rgbValues2 = text2ColorSelect.value.split(',').map(v => parseInt(v.trim()));
+        const brightness2 = (rgbValues2[0] * 299 + rgbValues2[1] * 587 + rgbValues2[2] * 114) / 1000;
+        text2ColorSelect.style.color = brightness2 > 128 ? "black" : "white";
+    }
     
     verticalPosition = document.getElementsByName("vertical_position")[0].value;
     sidePosition = document.getElementsByName("side_position")[0].value;
@@ -164,13 +184,19 @@ function designReset(){
 	if(confirm("現在作成中のデザインをリセットします。よろしいですか？")){
 	
 	document.getElementById("upper-text-input").value = "";
-//	text1Color = document.getElementsByName("text1_font_color")[0].value;
-	text1Color = "rgb(173,39,133)";
+	// セレクトボックスをリセット（最初のオプションを選択）
+	const text1ColorSelect = document.getElementsByName("text1_font_color")[0];
+	text1ColorSelect.selectedIndex = 0;
+	text1ColorSelect.style.backgroundColor = "";  // 背景色をリセット
+	text1ColorSelect.style.color = "";            // 文字色をリセット
 	document.getElementsByName("text1_size")[0].value = 24;
 	
 	document.getElementById("lower-text-input").value = "";
-	//text2Color = document.getElementsByName("text2_font_color")[0].value;
-	text2Color = "rgb(128,255,255)";
+	// セレクトボックスをリセット（最初のオプションを選択）
+	const text2ColorSelect = document.getElementsByName("text2_font_color")[0];
+	text2ColorSelect.selectedIndex = 0;
+	text2ColorSelect.style.backgroundColor = "";  // 背景色をリセット
+	text2ColorSelect.style.color = "";            // 文字色をリセット
 	document.getElementsByName("text2_size")[0].value = 24;
 	
 	document.getElementsByName("vertical_position")[0].value = 0;
@@ -179,13 +205,11 @@ function designReset(){
 	}
 }
 
+
 //ユーザー情報の取得
 function getUser(){
-		console.log("getUser()始まった");
 		const id = document.getElementById("input-id").value;
-		console.log(id);
-		const pass = document.getElementById("input-password").value;
-		console.log(pass);
+		const pass = document.getElementById("input-password").value
 		fetch("./loginServlet2?ID=" + id + "&pass=" + pass)
 		.then(response => response.json())
 		.then(json => {

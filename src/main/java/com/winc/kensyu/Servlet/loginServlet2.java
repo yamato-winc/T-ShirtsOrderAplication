@@ -46,7 +46,6 @@ public class loginServlet2 extends HttpServlet {
 			UserDAO dao = new UserDAO();
 			String userID = request.getParameter("ID");
 			String pass = request.getParameter("pass");
-//			System.out.println(pass);
 			
 			if(!userID.contains("@")) {
 				response.setStatus(400);
@@ -59,13 +58,9 @@ public class loginServlet2 extends HttpServlet {
 				}
 			
 				else if(!dto.getUserPass().equals(pass)) {
-//					System.out.println("ここ北代");
 					response.setStatus(403);
 				}
 				else {
-//					System.out.println("nullではなかった");
-//					List<UserDTO> list = new ArrayList<>();
-//					list.add(dto);
 					ObjectMapper objectMapper = new ObjectMapper();
 					String Json = objectMapper.writeValueAsString(dto);
 				
@@ -101,25 +96,4 @@ public class loginServlet2 extends HttpServlet {
 
 	}
 	
-//	private String convertToJson(UserDTO dto) {
-//		StringBuilder json = new StringBuilder();
-//		json.append("{");
-//		json.append("\"User_Company\":").append(dto.getUserCompany()).append(",");
-//		json.append("\"User_Name\":").append(dto.getUserName());
-//		json.append("}");
-//		
-//		return json.toString();
-//		
-//	}
-	
-//	private Map<String, String> getUserInfo(UserDTO dto,String userID) {
-//		Map<String, String> map = new HashMap<>();
-//		map.put("User_Company", dto.getUserCompany());
-//		map.put("User_Name", dto.getUserName());
-//		map.put("userId",userID);
-//		System.out.print(map);
-//		return map;
-//	}
-
-
 }

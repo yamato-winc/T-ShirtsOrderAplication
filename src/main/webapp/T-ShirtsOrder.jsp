@@ -54,7 +54,7 @@
 			<input type="text" name="text1" id="upper-text-input" onchange="ChangeDesign()">
 			<select class="color-palette" name="text1_font_color" onchange="ChangeDesign()"></select>
 				
-			<p>Tシャツに入れつ文字(下段)</p>
+			<p>Tシャツに入れる文字(下段)</p>
 			<input type="text" name="text2" id="lower-text-input" onchange="ChangeDesign()">
 			<select class="color-palette" name="text2_font_color" onchange="ChangeDesign()"></select>
 			
