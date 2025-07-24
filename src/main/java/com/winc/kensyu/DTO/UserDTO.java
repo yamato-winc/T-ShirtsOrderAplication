@@ -9,9 +9,9 @@ public class UserDTO {
 	
 	@JsonProperty("userID")
 	private String userId;
-	@JsonProperty("userPass")
-	private String userPass;
 	@JsonIgnore
+	private String userPass;
+	@JsonProperty("userCompany")
 	private String userCompany;
 	@JsonProperty("userName")
 	private String userName;
