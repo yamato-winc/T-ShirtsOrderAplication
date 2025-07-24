@@ -54,7 +54,7 @@ public class DesignDAO {
 
 	}
 	
-	public void setDesignDTO(Connection conn, DesignDTO designDTO) {
+	public boolean setDesignDTO(Connection conn, DesignDTO designDTO) {
 		String sql = "INSERT INTO DESIGN_TABLE(ORDER_CODE, BASE_COLOR, TEXT1, TEXT1_SIZE, TEXT1_FONTCOLOR, TEXT2, TEXT2_SIZE, TEXT2_FONTCOLOR, VERTICAL_POSITION, SIDE_POSITION) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
@@ -72,10 +72,11 @@ public class DesignDAO {
 			
 			stmt.executeUpdate();
 			
-			
+			return true;
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			return false;
 		}finally {
 			try {
 				if(rs != null) {
