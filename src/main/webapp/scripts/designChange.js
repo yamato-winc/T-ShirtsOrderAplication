@@ -1,57 +1,10 @@
 /*タブとページとログインユーザーの表示の取得*/
-// const tabs = document.getElementById('tab-control').getElementsByTagName('a');
+ const aTabs = document.getElementById('tab-control').getElementsByTagName('a');
  const viewText = document.getElementById("viewText");
  const pages = document.getElementById("tab-body").getElementsByClassName("tab");
  const displayUser = document.getElementsByClassName("display-user");
  const orderCount = document.getElementsByName("user-id")[0];
- 
- //ページ表時
- function viewLoginPage(){
-	for(const page of pages) {
-		page.style.display = "none";
-	}
-	for(const tab of tabs) {
-		tab.style.display = "none";
-	}
-	for(const disp of displayUser) {
-		disp.style.display = "none";
-	}
-	pages[0].style.display = "block";
-}
 
- /*タブの切り替え処理*/
- /*function changeTab() {
-	for(const tab of tabs) {
-		tab.style.display = "";
-	}
-	for(const disp of displayUser) {
-		disp.style.display = "";
-	}
-
-	/*href属性値からidを抜き出す*/
-	/*if(this.href != undefined){
-	const targetId = this.href.substring(this.href.indexOf("#")+1, this.href.length);
-
-	/*指定ページの表示*/
-/*	for(let i = 0; i < pages.length; i++){
-		if(pages[i].id != targetId) {
-			pages[i].style.display = "none";
-		}else{
-			pages[i].style.display = "block";
-		}
-	}
-	
-	/*ページが遷移しないようにfalseを返す*/
-/*	return false;
-}}
-*/
-
-for(let i=0; i<tabs.length; i++){
-	tabs[i].onclick = changeTab;
-}
-
-/*最初は先頭のタブを選択*/
-tabs[0].onclick();
 
 /*ベースカラー変更*/
 function ChangeBaseColor(){
@@ -105,30 +58,35 @@ function ChangeDesign(){
 //ユーザー情報の取得
 function getUser(){
 		console.log("getUser()始まった");
-		fetch("loginServlet2")
+		const id = document.getElementById("input-id").value;
+		console.log(id);
+		const pass = document.getElementById("input-password").value;
+		console.log(pass);
+		fetch("./loginServlet2?ID=" + id + "&pass=" + pass)
 		.then(response => response.json())
-		.then(data => {
+		.then(json => {
 			const company = document.getElementById("display-company");
 			const user = document.getElementById("display-user");
-			company.innerText = "会社名：" + data["User_Company"];
-			user.innerText = "ユーザー：" + data["User_Name"];
+			company.innerText = "会社名：" + json.userCompany;
+			user.innerText = "ユーザー：" + json.userName;
+			changeTab("tab1");
 		})
 }
 
 //色の取得
-
-//let colorJson = [];
-//const colors = [];
-//function getColor(){
-	//console.log("getColor()始まった");
-	//fetch("getFontColorServlet")
-	//	.then(response => response.json())
-		//.then(data => {
-		//	colorJson = data;
-	//		colors.push(data[]);
-		//})
-//}
-
+/*
+let colorJson = [];
+const colors = [];
+function getColor(){
+	console.log("getColor()始まった");
+	fetch("./getFontColorServlet")
+		.then(response => response.json())
+		.then(data => {
+			colorJson = data.;
+		colors.push(data);
+	})
+}
+*/
 
 //テストカラー
 /*
@@ -177,6 +135,14 @@ function changeTab(tabId) {
 function load(){
 	//色の取得
 //	getColor();
+	
+	//ユーザーとタブの表示を消す
+//	for(const tab of aTabs) {
+//		tab.style.display = "none";
+//	}
+//	for(const disp of displayUser) {
+//		disp.style.display = "none";
+//	}
 	
 	changeTab("login-tab");
 	

@@ -28,11 +28,9 @@
 	<!------ ログイン画面 ------>
 	<div class="tab" id="login-tab">
 		<h1>ログイン</h1>
-		<form method="get" action="./loginServlet2">
 		<input type="text" name="ID" id="input-id" placeholder="IDを入力してください。"><br>
 		<input type="text" name="pass" id="input-password" placeholder="パスワードを入力してください。"><br>
-		<input type="submit" id="submit-login" value="ログイン">
-		</form>
+		<input type="button" id="submit-login" value="ログイン" onclick="getUser()">
 	</div>
 
 
@@ -40,14 +38,13 @@
 	<div class="tab" id="tab1">
 		<h1 style="text-align:center;">Tシャツデザイン画面</h1>
 		<p>Tシャツのベースカラー</p>
-		<form action="/buyServlet" method="post">
 		<select id="base-color" name="base-color" onchange="ChangeBaseColor()">
 			<option value="White-T">白</option>
 			<option value="Gray-T">グレー</option>
 			<option value="Black-T">黒</option>
 		</select>
 		<div style="text-align: right;">
-			<input type="button" id="design-reset">デザインのリセット
+			<button id="design-reset">デザインのリセット</button>
 		</div>
 		
 		<!-- 入力欄 -->
@@ -76,10 +73,8 @@
 		
 		<!-- 注文枚数、注文確定ボタン -->
 		<div id="order-submit">
-		<input type="hidden" name="user-id" >
-			<h2>注文枚数 : <input type="text" name="order-count">枚 <input type=submit value="注文確定"></h2>
+			<h2>注文枚数 : <input type="text" name="order-count">枚 <input type="button" value="注文確定" onclick="buy()"></h2>
 		</div>
-		</form>
 	</div>
 	
 	
