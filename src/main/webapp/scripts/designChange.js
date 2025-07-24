@@ -6,7 +6,6 @@
 
 //ページにデザインを保存するための変数
 ///////////////////////////////////////
-var successUserId;
 var orderCount;
 
 var baseColor;
@@ -50,7 +49,7 @@ function buy(){
 	orderCount = document.getElementsByName("order-count")[0].value;
 	
 	const params = new URLSearchParams();
-	params.append("user_id",successUserId);
+	params.append("user_id",userID);
 	params.append("order_count",orderCount);
 	params.append("base_color",baseColor);
 	params.append("text1",text1);
@@ -67,7 +66,7 @@ function buy(){
 	headers:{
 		"Content-Type":"application/x-www-form-urlencoded"
 	},
-	body:params
+	body:params.toString()
 	}).then(response => {
 		if(response.ok){
 			changeToOrderHistory();

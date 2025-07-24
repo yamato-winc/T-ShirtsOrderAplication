@@ -41,6 +41,9 @@ public class buyServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-gene
+		
+		request.setCharacterEncoding("UTF-8");
+
 		OrderHistoryDTO orderDTO = new OrderHistoryDTO();
 		DesignDTO designDTO = new DesignDTO();
 		String sql = "VALUES NEXT VALUE FOR ORDER_CODE_SEQUENCE";
