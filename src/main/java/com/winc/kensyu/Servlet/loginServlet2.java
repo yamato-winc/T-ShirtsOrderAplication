@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,10 +57,10 @@ public class loginServlet2 extends HttpServlet {
 				dispatcher.forward(request, response);
 			}else {
 //				System.out.println("nullではなかった");
-				List<UserDTO> list = new ArrayList<>();
-				list.add(dto);
+//				List<UserDTO> list = new ArrayList<>();
+//				list.add(dto);
 				ObjectMapper objectMapper = new ObjectMapper();
-				String Json = objectMapper.writeValueAsString(list);
+				String Json = objectMapper.writeValueAsString(dto);
 				
 				response.setContentType("application/json");
 				PrintWriter out = response.getWriter();
