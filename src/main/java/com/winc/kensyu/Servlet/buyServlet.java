@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -108,13 +107,13 @@ public class buyServlet extends HttpServlet {
 			designDTO.setVerticalPosition(vertical);
 			designDTO.setSidePosition(side);
 			
+			if(designDAO.setDesignDTO(conn, designDTO) && orderDAO.setOrderHistoryDTO(conn, orderDTO)) {
+				response.setStatus(200);
+			}
+			else {
+				response.setStatus(500);
+			}
 			
-			designDAO.setDesignDTO(conn, designDTO);
-			orderDAO.setOrderHistoryDTO(conn, orderDTO);
-			
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/T-Shirt.jsp");
-			dispatcher.forward(request, response);
 			
 		}catch(Exception e) {
 			

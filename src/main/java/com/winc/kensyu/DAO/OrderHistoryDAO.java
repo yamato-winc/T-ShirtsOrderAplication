@@ -67,7 +67,7 @@ public class OrderHistoryDAO {
     }
 	
 	
-	public void setOrderHistoryDTO(Connection conn, OrderHistoryDTO orderDTO) {
+	public boolean setOrderHistoryDTO(Connection conn, OrderHistoryDTO orderDTO) {
 		String sql = "INSERT INTO ORDER_HISTORY_TABLE (ORDER_CODE, USER_ID, ORDER_DATE, ORDER_COUNT) VALUES(?, ?, CURRENT_TIMESTAMP,?)";
 		
 		try {
@@ -78,8 +78,11 @@ public class OrderHistoryDAO {
 			
 			stmt.executeUpdate();
 			
+			return true;
+			
 		}catch(SQLException e) {
 			e.printStackTrace();
+			return false;
 		}finally {
 			try {
 				if(rs != null) {
