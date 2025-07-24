@@ -222,10 +222,11 @@ function getUser(){
 		
 		fetch("./loginServlet2?ID=" + id + "&pass=" + pass)
 		.then(response => {
-			if(response.ok){
-			response.json()
-			}else{alert("ログインに失敗しました。IDかパスワードが正しくありません。")}
-				
+			if(!response.ok){
+			alert("ログインに失敗しました。IDかパスワードが正しくありません。")
+			return false;
+			}
+			return response.json()
 		})
 		.then(json => {
 			const company = document.getElementById("display-company");
