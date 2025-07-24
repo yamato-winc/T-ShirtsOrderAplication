@@ -12,18 +12,18 @@
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
 <script src="scripts/loginFilter.js"></script>
 </head>
-<body onload="changeTab()"> <!-- onloadで初期画面変更して -->
+<body onload="load()"> <!-- onloadで初期画面変更して -->
 <div class="container">
 
-<p class="display-user">会社名：</p>
-<p class="display-user">ユーザー：</p>
+<p id="display-company"></p>
+<p id="display-user"></p>
 
 <div id="tab-control">
 	<form action="./orderHistoryServlet" method="get">
 	<input type="submit">
 	<a href="#tab1">デザイン画面</a>
+	<a href="#tab2" onclick="submit()">注文履歴画面</a>
 	</form>
-	<a href="#tab2">注文履歴画面</a>
 </div>
 
 <div id="tab-body">
@@ -44,7 +44,7 @@
 		<h1 style="text-align:center;">Tシャツデザイン画面</h1>
 		<p>Tシャツのベースカラー</p>
 		<form action="/buyServlet" method="post">
-		<select id="base-color" onchange="ChangeBaseColor()">
+		<select id="base-color" name="base-color" onchange="ChangeBaseColor()">
 			<option value="White-T">白</option>
 			<option value="Gray-T">グレー</option>
 			<option value="Black-T">黒</option>
@@ -79,7 +79,8 @@
 		
 		<!-- 注文枚数、注文確定ボタン -->
 		<div id="order-submit">
-			<h2>注文枚数 : <input type="text">枚 <input type=submit value="注文確定"></h2>
+		<input type="hidden" name="user-id" >
+			<h2>注文枚数 : <input type="text" name="order-count">枚 <input type=submit value="注文確定"></h2>
 		</div>
 		</form>
 	</div>

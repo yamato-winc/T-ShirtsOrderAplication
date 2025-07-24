@@ -13,7 +13,7 @@ public class FontColorDAO {
 		
 		public List<FontColorDTO> getFontColorDTO() {
 	        List<FontColorDTO> list = new ArrayList<>();
-        String sql = "SELECT fontcolor_id, fontcolor_r, fontcolor_g, fontcolor_b, fontcolor_use_start, fontcolor_use_end FROM FONTCOLOR_TABLE where ? between fontcolor_use_start and fontcolor_use_end";
+        String sql = "SELECT fontcolor_id, fontcolor_r, fontcolor_g, fontcolor_b, fontcolor_use_start, fontcolor_use_end FROM FONTCOLOR_TABLE where now() between fontcolor_use_start and fontcolor_use_end";
 
         try (Connection conn = DBAccess.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql);
