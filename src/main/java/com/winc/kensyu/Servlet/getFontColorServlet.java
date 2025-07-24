@@ -2,9 +2,7 @@ package com.winc.kensyu.Servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,25 +24,12 @@ public class getFontColorServlet extends HttpServlet {
      * @return 
      * @see HttpServlet#HttpServlet()
      */
-    public Map<Integer, String> getfontColorServlet() {
+    public List<FontColorDTO> getfontColorServlet() {
         // TODO Auto-generated constructor stub
         
         FontColorDAO dao = new FontColorDAO();
         List<FontColorDTO> listdata = dao.getFontColorDTO();
-        Map<Integer,String> map = new HashMap<>();
-        
-        for(int i = 0; i<listdata.size(); i++) {
-        	int fontColorId = listdata.get(i).getFontColorId();
-        	int r = listdata.get(i).getFontColorR(); 
-        	int g = listdata.get(i).getFontColorG();
-        	int b = listdata.get(i).getFontColorB();
-        	String RGB =  r + "," + g + "," + b;
-        	
-        	map.put(fontColorId, RGB);
-        	
-        }
-        System.out.println(map);
-        return map;
+        return listdata;
     }
 
 	/**
@@ -52,20 +37,18 @@ public class getFontColorServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Map<Integer,String> fontColorMap = getfontColorServlet();
+		List<FontColorDTO> fontColorlist = getfontColorServlet();
 		ObjectMapper objectMapper = new ObjectMapper();
-		String json = objectMapper.writeValueAsString(fontColorMap);
+		String json = objectMapper.writeValueAsString(fontColorlist);
 		
 		//HttpSession session = request.getSession();
 		//session.setAttribute("colorJson", json);
-		//System.out.println(json);
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("T-ShirtsOrder.jsp");
 		//dispatcher.forward(request, response);
+		//response.setCharacterEncoding("UTF-8");
+		
 		
 		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		
-//		response.getWriter().write(json);
 		PrintWriter out = response.getWriter();
 		out.print(json);
 		out.flush();
