@@ -3,20 +3,14 @@
  const viewText = document.getElementById("viewText");
  const pages = document.getElementById("tab-body").getElementsByClassName("tab");
  const displayUser = document.getElementsByClassName("display-user");
- const orderCount = document.getElementsByName("user-id")[0];
-
-
-/*ベースカラー変更*/
-function ChangeBaseColor(){
-	let selectedColor = document.getElementById("base-color").value;
-	console.log(document.querySelectorAll(".view-design #view-T-shirts")[0]);
-	const viewDesign = document.querySelectorAll(".view-design #view-T-shirts")[0];
-	viewDesign.innerHTML= "<img src=\"image/" + selectedColor + ".png\" alt=\"Tシャツの画像\" style=\"height:500px; width:500px;\">";
-}
 
 //ページにデザインを保存するための変数
 ///////////////////////////////////////
 var successUserId;
+var orderCount;
+
+var baseColor;
+
 var text1;
 var text1Color;
 var text1Size;
@@ -28,6 +22,49 @@ var text2Size;
 var verticalPosition;
 var sidePosition;
 ////////////////////////////////////////
+
+/*ベースカラー変更*/
+function ChangeBaseColor(){
+	baseColor = document.getElementById("base-color").value;
+	const viewDesign = document.querySelectorAll(".view-design #view-T-shirts")[0];
+	viewDesign.innerHTML= "<img src=\"image/" + baseColor + ".png\" alt=\"Tシャツの画像\" style=\"height:500px; width:500px;\">";
+}
+
+
+function buy(){
+	if(confirm("注文を確定してよろしいですか。")){
+	orderCount = document.getElementsByName("order-count")[0];
+	console.log(orderCount);
+	
+	const params = new URLSearchParams();
+	params.append("user_id",successUserId);
+	params.append("order_count",orderCount);
+	params.append("base_color",baseColor);
+	params.append("text1",text1);
+	params.append("text1_size",text1Size);
+	params.append("text1_font_color",text1Color);
+	params.append("text2",text2);
+	params.append("text2_size",text2Size);
+	params.append("text2_font_color",text2Color);
+	params.append("vertival_position",verticalPosition);
+	params.append("side_position",sidePosition);
+	
+	fetch("./buyServlet",{
+	method:"POST",
+	headers:{
+		"Content-Type":"application/x-www-form-urlencoded"
+	},
+	body:params.toString()
+	}).then(response => {
+		if(!response.ok){
+			changeToOrderHistory();
+		}else{
+			alert("注文の確定に失敗しました。");
+		}
+		
+	});
+	};	
+}
 
 //デザイン変更時の変数
 function ChangeDesign(){
@@ -68,6 +105,25 @@ function ChangeDesign(){
 
 }
 
+function designReset(){
+	if(confirm("現在作成中のデザインをリセットします。よろしいですか？")){
+	
+	document.getElementById("upper-text-input").value = "";
+//	text1Color = document.getElementsByName("text1_font_color")[0].value;
+	text1Color = "rgb(255,0,0)";
+	document.getElementsByName("text1_size")[0].value = 24;
+	
+	document.getElementById("lower-text-input").value = "";
+	//text2Color = document.getElementsByName("text2_font_color")[0].value;
+	text2Color = "rgb(0,255,0)";
+	document.getElementsByName("text2_size")[0].value = 24;
+	
+	document.getElementsByName("vertical_position")[0].value = 0;
+	document.getElementsByName("side_position")[0].value = 0;
+	ChangeDesign();
+	}
+}
+
 //ユーザー情報の取得
 function getUser(){
 		console.log("getUser()始まった");
@@ -86,7 +142,7 @@ function getUser(){
 			setUserID(id);
 			Filter()
 				//ベースカラーの選択も行う
-	ChangeBaseColor();
+			ChangeBaseColor();
 	
 		})
 }
@@ -149,7 +205,7 @@ function changeTab(tabId) {
   }
   
   if(tabId === "tab1" || tabId === "tab2"){
-		//ユーザーとタブの表示を消す
+		//ユーザーとタブを表示
 	for(const tab of aTabs) {
 		tab.style.display = "";
 	}
@@ -161,8 +217,11 @@ function changeTab(tabId) {
 }
 
 
+
 //画面ロード時の初期設定
 function load(){
+	
+	getColor();
 	
 	//ユーザーとタブの表示を消す
 	for(const tab of aTabs) {
