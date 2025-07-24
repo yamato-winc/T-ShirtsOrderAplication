@@ -65,9 +65,12 @@
 		</div>
 			
 		<!-- Tシャツ表示 -->
-		<div id="view-design">
-			<section id="view-text"></section>
-		
+		<div class="view-design">
+			<div id="view-T-shirts"></div>
+			<section id="view-text">
+				<div id="view-upper-text"></div>
+				<div id="view-lower-text"></div>
+			</section>		
 		</div>
 		</div>
 		

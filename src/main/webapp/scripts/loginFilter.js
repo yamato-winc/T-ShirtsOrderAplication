@@ -37,9 +37,16 @@ function setUserID(str){
 
 function Filter(){
 	if(userID === null){
-		window.location.href = '../T-ShirtsOrder.jsp';
+	for(const tab of aTabs) {
+		tab.style.display = "none";
+	}
+	for(const disp of displayUser) {
+		disp.style.display = "none";
+	}
+	
+	changeTab("login-tab");
 	}else{
-		window.location.href = '../T-ShirtsOrder.jsp';
+		changeTab("tab1");
 	}
 }
 

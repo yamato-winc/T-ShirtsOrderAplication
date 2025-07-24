@@ -86,7 +86,8 @@ html, body {
 	padding-right:50px;
 }
 /*デザイン表示欄の設定*/
-#view-design {
+.view-design {
+	text-align:center;
 	height:500px;
 	width:500px;
 	border:1px solid;
