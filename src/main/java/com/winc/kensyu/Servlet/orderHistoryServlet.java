@@ -28,8 +28,10 @@ public class orderHistoryServlet extends HttpServlet {
 		try {
 			con = DBAccess.getConnection();
 			//注文の履歴を取得getCompanyDAOlメソッドで注文履歴リストを取得
+			
+			String userId = (String)request.getAttribute("ID");
 			OrderHistoryDAO dao = new OrderHistoryDAO();
-			List<OrderHistoryDTO> orderList = dao.getOrderHistoryDTO(con,"Tanaka@example");
+			List<OrderHistoryDTO> orderList = dao.getOrderHistoryDTO(con,userId);
 			
 			request.setAttribute("orderList", orderList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("orderHistory.jsp");
