@@ -14,7 +14,9 @@
 			 <% if((List<OrderHistoryDTO>)request.getAttribute("orderList") != null){
 			 	List<OrderHistoryDTO> list = (List<OrderHistoryDTO>)request.getAttribute("orderList");
 			 	System.out.println("受け取ったリスト" + list);
-			 	for(OrderHistoryDTO ohdto:list ){%>
+			 	for(OrderHistoryDTO ohdto:list ){
+			 		List<FontColorDTO> fontList = (List<FontColorDTO>)request.getAttribute("")
+			 		FontColorDTO font:%>
 			 		<tr>
 			 			<td><!-- 注文番号 -->
 			 				<%= ohdto.getOrderCode() %>
