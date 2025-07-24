@@ -5,10 +5,10 @@ public class DesignDTO {
 	private String baseColor;
 	private String Text1;
 	private int Text1Size;
-	private String Text1FontColorId;
+	private int Text1FontColorId;
 	private String Text2;
 	private int Text2Size;
-	private String Text2FontColorId;
+	private int Text2FontColorId;
 	private int verticalPosition;
 	private int sidePosition;
 	
@@ -37,10 +37,10 @@ public class DesignDTO {
 	public void setText1Size(int text1Size) {
 		Text1Size = text1Size;
 	}
-	public String getText1FontColorId() {
+	public int getText1FontColorId() {
 		return Text1FontColorId;
 	}
-	public void setText1FontColorId(String text1FontColorId) {
+	public void setText1FontColorId(int text1FontColorId) {
 		Text1FontColorId = text1FontColorId;
 	}
 	public String getText2() {
@@ -55,10 +55,10 @@ public class DesignDTO {
 	public void setText2Size(int text2Size) {
 		Text2Size = text2Size;
 	}
-	public String getText2FontColorId() {
+	public int getText2FontColorId() {
 		return Text2FontColorId;
 	}
-	public void setText2FontColorId(String text2FontColorId) {
+	public void setText2FontColorId(int text2FontColorId) {
 		Text2FontColorId = text2FontColorId;
 	}
 	public int getVerticalPosition() {
