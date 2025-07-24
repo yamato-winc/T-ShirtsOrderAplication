@@ -48,7 +48,20 @@ public class OrderHistoryDAO {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally {
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				
+				if(stmt != null) {
+					stmt.close();
+				}
+			}catch(SQLException e) {
+				System.out.println("objectのclose時に例外が発生");
+				e.printStackTrace();
+			}
+		}
 
         return list;
     }

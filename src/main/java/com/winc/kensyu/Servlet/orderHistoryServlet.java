@@ -21,11 +21,11 @@ import com.winc.kensyu.DTO.OrderHistoryDTO;
  */
 @WebServlet("/orderHistoryServlet")
 public class orderHistoryServlet extends HttpServlet {
+	Connection con = null;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
 		
-		
 		try {
-			Connection con;
 			con = DBAccess.getConnection();
 			//注文の履歴を取得getCompanyDAOlメソッドで注文履歴リストを取得
 			OrderHistoryDAO dao = new OrderHistoryDAO();
@@ -38,6 +38,20 @@ public class orderHistoryServlet extends HttpServlet {
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
+		}finally {
+			
+			try {
+				
+				if(con != null) {
+					con.close();
+				}
+				
+			}catch(SQLException e) {
+				
+				System.out.println("objectのclose時に例外が発生");
+				e.printStackTrace();
+				
+			}
 		}
 		
 
