@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.winc.kensyu.DAO.DBAccess;
+import com.winc.kensyu.DAO.FontColorDAO;
 import com.winc.kensyu.DAO.OrderHistoryDAO;
+import com.winc.kensyu.DTO.FontColorDTO;
 import com.winc.kensyu.DTO.OrderHistoryDTO;
 
 /**
@@ -30,18 +32,19 @@ public class orderHistoryServlet extends HttpServlet {
 			//注文の履歴を取得getCompanyDAOlメソッドで注文履歴リストを取得
 			
 			String userId = (String)request.getParameter("ID");
-			System.out.println("servlet" + userId);
+			System.out.println("orderHistoryServlet - 受信したユーザーID: " + userId);
+			
 			OrderHistoryDAO dao = new OrderHistoryDAO();
 			List<OrderHistoryDTO> orderList = dao.getOrderHistoryDTO(con,userId);
+			System.out.println("orderHistoryServlet - 取得した注文履歴数: " + orderList.size());
+			
+			// フォントカラー情報も取得
+			FontColorDAO fontColorDAO = new FontColorDAO();
+			List<FontColorDTO> fontColorList = fontColorDAO.getFontColorDTO();
+			System.out.println("orderHistoryServlet - 取得したフォントカラー数: " + fontColorList.size());
 			
 			request.setAttribute("orderList", orderList);
-			for(OrderHistoryDTO ohdto:orderList) {
-				String font1Id = ohdto.getText1FontColorId();
-				String font2Id = ohdto.getText2FontColorId();
-				
-			};
-			
-			request.setAttribute("fontList", );
+			request.setAttribute("fontColorList", fontColorList);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("orderHistory.jsp");
 			//ページ遷移

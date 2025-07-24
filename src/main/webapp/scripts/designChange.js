@@ -180,6 +180,7 @@ function ChangeDesign(){
     lowerText.style.textAlign = "center";
 }
 
+//デザインの初期化
 function designReset(){
 	if(confirm("現在作成中のデザインをリセットします。よろしいですか？")){
 	
@@ -210,8 +211,23 @@ function designReset(){
 function getUser(){
 		const id = document.getElementById("input-id").value;
 		const pass = document.getElementById("input-password").value
+      
+      // 使用可能な文字：半角英数字 + 記号（ASCII printable characters）
+      const regex = /^[\x21-\x7E]{3,12}$/;
+
+      if (!regex.test(pass)) {
+        alert("パスワードは3〜12文字で、半角英数字と記号のみ使用可能です。");
+        return false;
+      }
+		
 		fetch("./loginServlet2?ID=" + id + "&pass=" + pass)
-		.then(response => response.json())
+		.then(response => {
+			if(!response.ok){
+			alert("ログインに失敗しました。IDかパスワードが正しくありません。")
+			return false;
+			}
+			return response.json()
+		})
 		.then(json => {
 			const company = document.getElementById("display-company");
 			const user = document.getElementById("display-user");
