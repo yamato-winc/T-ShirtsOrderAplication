@@ -27,7 +27,7 @@ var sidePosition;
 function ChangeBaseColor(){
 	baseColor = document.getElementById("base-color").value;
 	const viewDesign = document.querySelectorAll(".view-design #view-T-shirts")[0];
-	viewDesign.innerHTML= "<img src=\"image/" + baseColor + ".png\" alt=\"Tシャツの画像\" style=\"height:500px; width:500px;\">";
+	viewDesign.innerHTML= "<img src=\"image/" + baseColor + ".png\" alt=\"Tシャツの画像\" style=\"height:520px; width:520px;\">";
 }
 
 function getKeyByValue(rgb) {
@@ -43,17 +43,21 @@ function getKeyByValue(rgb) {
   return null; // 見つからなかった場合
 }
 
-function numCheck(){
-	console.log(document.getElementsByName("order-count")[0].value);
-	if(document.getElementsByName("order-count")[0].value <= 0){
-		document.getElementsByName("order-count")[0].value = 1;
-	}else if(document.getElementsByName("order-count")[0].value > 999){
-		document.getElementsByName("order-count")[0].value = 999;
-	}
-}
 
 function buy(){
-	console.log(verticalPosition + sidePosition);
+	if(document.getElementsByName("order-count")[0].value <= 0 || document.getElementsByName("order-count")[0].value > 999){
+		alert("注文枚数は1～999枚です。");
+		return false;
+	}
+	
+	const colorPalette = document.getElementsByClassName("color-palette");
+	const selectTag = [colorPalette[0],colorPalette[1]];
+	if(selectTag[0].value === "" || selectTag[1].value === "")
+		{
+		alert("文字の色を選択してください。");
+		return false;	
+	}	
+	
 	if(confirm("注文を確定してよろしいですか。")){
 	orderCount = document.getElementsByName("order-count")[0].value;
 	
@@ -300,7 +304,6 @@ function getColor(){
 				const RGB = color.FontColor_R + "," + color.FontColor_G + "," + color.FontColor_B;
 				colorMap.set(color.FontColor_Id,RGB);
 			}
-			console.log(colorMap);
 			//カラーパレットへセット
 			const colorPalette = document.getElementsByClassName("color-palette");
 			const selectTag = [colorPalette[0],colorPalette[1]];
@@ -321,7 +324,7 @@ function getColor(){
 				for(const select of selectTag){
 					if(select) {
 						const color = document.createElement("option");
-						color.text = "■";
+						color.text = "";
 						color.value = rgb;
 						color.style.color = "rgb(" + rgb + ")";
 						color.style.backgroundColor = "rgb(" + rgb + ")";
@@ -354,8 +357,7 @@ function changeToOrderHistory(){
 
 
 
-function changeTab(tabId) {
-  
+function changeTab(tabId) {  
   const tabs = document.querySelectorAll(".tab");
   tabs.forEach(tab => {
     tab.classList.remove("active");
@@ -366,6 +368,16 @@ function changeTab(tabId) {
   if (activeTab) {
     activeTab.classList.add("active");
   }
+  
+  if(tabId === "tab1"){
+	document.getElementById("tab-control").getElementsByTagName("a")[1].style.backgroundColor = "#d6d6d6";
+	document.getElementById("tab-control").getElementsByTagName("a")[0].style.backgroundColor = "white";
+	//document.getElementsByName("text1_font_color")[0].options[1].selected = true;
+	//document.getElementsByName("text2_font_color")[0].options[1].selected = true;
+	}else if(tabId === "tab2"){
+	document.getElementById("tab-control").getElementsByTagName("a")[0].style.backgroundColor = "#d6d6d6";
+	document.getElementById("tab-control").getElementsByTagName("a")[1].style.backgroundColor = "white";
+}
   
   if(tabId === "tab1" || tabId === "tab2"){
 		//ユーザーとタブを表示
@@ -396,9 +408,5 @@ function load(){
 	
 	changeTab("login-tab");
 	
-
-	//ログインユーザーの表示
-	console.log("実行されたよ");
-//	orderCount.setAttribute("value", userID);
 }
 
