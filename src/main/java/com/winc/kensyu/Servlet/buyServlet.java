@@ -60,6 +60,8 @@ public class buyServlet extends HttpServlet {
 				
 				if(rs.next()) {
 					nextOrderCode = rs.getString(1);
+					nextOrderCode = String.format("%07d", Integer.parseInt(nextOrderCode));
+					System.out.println(nextOrderCode);
 				}
 				
 			}catch (SQLException e) {
@@ -69,7 +71,7 @@ public class buyServlet extends HttpServlet {
 					ps.close();
 				}
 			}
-			
+			System.out.println("２回目" + nextOrderCode);
 			
 			String userID = request.getParameter("user_id");
 			String baseColor = request.getParameter("base_color");
