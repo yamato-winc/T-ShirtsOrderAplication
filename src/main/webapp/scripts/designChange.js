@@ -43,6 +43,15 @@ function getKeyByValue(rgb) {
   return null; // 見つからなかった場合
 }
 
+function numCheck(){
+	console.log(document.getElementsByName("order-count")[0].value);
+	if(document.getElementsByName("order-count")[0].value <= 0){
+		document.getElementsByName("order-count")[0].value = 1;
+	}else if(document.getElementsByName("order-count")[0].value > 999){
+		document.getElementsByName("order-count")[0].value = 999;
+	}
+}
+
 function buy(){
 	console.log(verticalPosition + sidePosition);
 	if(confirm("注文を確定してよろしいですか。")){
@@ -69,6 +78,7 @@ function buy(){
 	body:params.toString()
 	}).then(response => {
 		if(response.ok){
+			designReset();
 			changeToOrderHistory();
 		}else{
 			alert("注文の確定に失敗しました。");
@@ -80,6 +90,12 @@ function buy(){
 
 //デザイン変更
 function ChangeDesign(){
+	if(document.getElementsByName("text1_size")[0].value <= 0){
+		document.getElementsByName("text1_size")[0].value = 1;
+	}else if(document.getElementsByName("text1_size")[0].value > 150){
+		document.getElementsByName("text1_size")[0].value = 150;
+	}
+	
     text1 = document.getElementById("upper-text-input").value;
     const text1ColorSelect = document.getElementsByName("text1_font_color")[0];
     text1Color = text1ColorSelect.value ? "rgb(" + text1ColorSelect.value + ")" : "rgb(0,0,0)";
@@ -100,6 +116,12 @@ function ChangeDesign(){
         text1ColorSelect.style.fontWeight = "normal";
     }
     
+    if(document.getElementsByName("text2_size")[0].value <= 0){
+		document.getElementsByName("text2_size")[0].value = 1;
+	}else if(document.getElementsByName("text2_size")[0].value > 150){
+		document.getElementsByName("text2_size")[0].value = 150;
+	}
+    
     text2 = document.getElementById("lower-text-input").value;
     const text2ColorSelect = document.getElementsByName("text2_font_color")[0];
     text2Color = text2ColorSelect.value ? "rgb(" + text2ColorSelect.value + ")" : "rgb(0,0,0)";
@@ -119,6 +141,18 @@ function ChangeDesign(){
         text2ColorSelect.style.color = "black";
         text2ColorSelect.style.fontWeight = "normal";
     }
+    
+    if(document.getElementsByName("vertical_position")[0].value < -100){
+		document.getElementsByName("vertical_position")[0].value = -100;
+	}else if(document.getElementsByName("vertical_position")[0].value > 100){
+		document.getElementsByName("vertical_position")[0].value = 100;
+	}
+	
+	if(sidePosition = document.getElementsByName("side_position")[0].value < -100){
+		sidePosition = document.getElementsByName("side_position")[0].value = -100;
+	}else if(sidePosition = document.getElementsByName("side_position")[0].value > 100){
+		sidePosition = document.getElementsByName("side_position")[0].value = 100;
+	}
     
     verticalPosition = document.getElementsByName("vertical_position")[0].value;
     sidePosition = document.getElementsByName("side_position")[0].value;
@@ -194,7 +228,6 @@ function ChangeDesign(){
 
 //デザインの初期化
 function designReset(){
-	if(confirm("現在作成中のデザインをリセットします。よろしいですか？")){
 	
 	document.getElementById("upper-text-input").value = "";
 	// セレクトボックスをリセット（最初のオプションを選択）
@@ -215,9 +248,12 @@ function designReset(){
 	document.getElementsByName("vertical_position")[0].value = 0;
 	document.getElementsByName("side_position")[0].value = 0;
 	ChangeDesign();
-	}
+	
 }
 
+function DesignReserButton(){
+	if(confirm("現在作成中のデザインをリセットします。よろしいですか？")){designReset();};
+}
 
 //ユーザー情報の取得
 function getUser(){
@@ -237,19 +273,20 @@ function getUser(){
 			if(!response.ok){
 			alert("ログインに失敗しました。IDかパスワードが正しくありません。")
 			return false;
-			}
+			}else{
 			return response.json()
-		})
+		}})
 		.then(json => {
+			if(json && json.userCompany && json.userName){
 			const company = document.getElementById("display-company");
 			const user = document.getElementById("display-user");
 			company.innerText = "会社名：" + json.userCompany;
 			user.innerText = "ユーザー：" + json.userName;
 			changeTab("tab1");
 			setUserID(id);
-			Filter()
 				//ベースカラーの選択も行う
 			ChangeBaseColor();
+			}
 	
 		})
 }

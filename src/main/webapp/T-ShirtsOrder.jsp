@@ -44,7 +44,7 @@
 			<option value="B">黒</option>
 		</select>
 		<div style="text-align: right;">
-			<button id="design-reset" onclick="designReset()">デザインのリセット</button>
+			<button id="design-reset" onclick="DesignReserButton()">デザインのリセット</button>
 		</div>
 		
 		<!-- 入力欄 -->
@@ -76,7 +76,7 @@
 		
 		<!-- 注文枚数、注文確定ボタン -->
 		<div id="order-submit">
-			<h2>注文枚数 : <input type="text" name="order-count" value="0">枚 <input type="button" value="注文確定" onclick="buy()"></h2>
+			<h2>注文枚数 : <input type="text" name="order-count" value="1" onchange="numCheck()">枚 <input type="button" value="注文確定" onclick="buy()"></h2>
 		</div>
 	</div>
 	
