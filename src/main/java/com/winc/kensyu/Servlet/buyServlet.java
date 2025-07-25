@@ -1,10 +1,15 @@
 package com.winc.kensyu.Servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,9 +44,30 @@ public class buyServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+    private static final Logger logger = Logger.getLogger(orderHistoryServlet.class.getName());
+
+    // ログ設定（C:\logs\change-servlet.log に出力）
+    static {
+        try {
+            File logDir = new File("C:\\logs");
+            if (!logDir.exists()) {
+                logDir.mkdirs();
+            }
+
+            FileHandler fh = new FileHandler("C:\\logs\\buy-Servlet.log", true);
+            fh.setFormatter(new SimpleFormatter());
+            logger.addHandler(fh);
+            logger.setLevel(Level.INFO);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-gene
-		
+		logger.info("doPostメソッドが開始されました。");
 		request.setCharacterEncoding("UTF-8");
 
 		OrderHistoryDTO orderDTO = new OrderHistoryDTO();
@@ -50,6 +76,7 @@ public class buyServlet extends HttpServlet {
 		String nextOrderCode = null;
 		
 		try {
+			logger.log(Level.INFO, "データベースにアクセスしました。");
 			conn = DBAccess.getConnection();
 			OrderHistoryDAO orderDAO = new OrderHistoryDAO();
 			DesignDAO designDAO = new DesignDAO();
@@ -65,6 +92,8 @@ public class buyServlet extends HttpServlet {
 				}
 				
 			}catch (SQLException e) {
+				logger.log(Level.SEVERE, "注文履歴のデータ取得時にエラーが発生しました。", e);
+				logger.log(Level.FINE, "エラーが発生しました。");
 				e.printStackTrace();
 			}finally {
 				if(ps != null) {
@@ -120,7 +149,7 @@ public class buyServlet extends HttpServlet {
 			
 			
 		}catch(Exception e) {
-			
+			logger.log(Level.SEVERE, "購入時にエラーが発生しました。", e);
 			e.printStackTrace();
 			
 		}finally {
@@ -131,7 +160,7 @@ public class buyServlet extends HttpServlet {
 				}
 				
 			}catch(SQLException e) {
-				
+				logger.log(Level.SEVERE, "購入時にエラーが発生しました。", e);
 				System.out.println("objectのclose時に例外が発生");
 				e.printStackTrace();
 				
