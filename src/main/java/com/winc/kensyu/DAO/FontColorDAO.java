@@ -10,15 +10,15 @@ import java.util.List;
 import com.winc.kensyu.DTO.FontColorDTO;
 
 public class FontColorDAO {
-	Connection conn = null;
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
 		
 	public List<FontColorDTO> getFontColorDTO() {
 		List<FontColorDTO> list = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		String sql = "SELECT fontcolor_id, fontcolor_r, fontcolor_g, fontcolor_b, fontcolor_use_start, fontcolor_use_end FROM FONTCOLOR_TABLE where now() between fontcolor_use_start and fontcolor_use_end";
 		try {
-			Connection conn = DBAccess.getConnection();
+			conn = DBAccess.getConnection();
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -59,11 +59,14 @@ public class FontColorDAO {
 	
 	public List<FontColorDTO> getOldFontColorDTO(String id) {
 		List<FontColorDTO> list = new ArrayList<>();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		String sql = "SELECT fontcolor_id, fontcolor_r, fontcolor_g, fontcolor_b, fontcolor_use_start, fontcolor_use_end FROM FONTCOLOR_TABLE where fontcolor_id = ?";
 		try {
-			Connection conn = DBAccess.getConnection();
+			conn = DBAccess.getConnection();
 			stmt = conn.prepareStatement(sql);
-       	 stmt.setString(1,(id));
+			stmt.setString(1,(id));
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				FontColorDTO dto = new FontColorDTO();
