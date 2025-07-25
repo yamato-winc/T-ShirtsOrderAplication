@@ -12,40 +12,45 @@
 <link type="text/css" rel="stylesheet" href="stylesheets/style.css">
 <script src="scripts/loginFilter.js"></script>
 </head>
-<body onload="load()"> <!-- onloadで初期画面変更して -->
-<div class="container">
+<body onload="load()">
 
+<header>
+<div id="header-text">
+<h1>オリジナルTシャツ注文サイト</h1>
 <p id="display-company"></p>
 <p id="display-user"></p>
-
-<p id="tab-control">
+</div>
+</header>
+<div class="container">
+<main>
+<div id="tab-control">
 	<a onclick="changeTab('tab1')">デザイン画面</a>
 	<a onclick="changeToOrderHistory()">注文履歴画面</a>
-</p>
-
+</div>
 <div id="tab-body">
 
 	<!------ ログイン画面 ------>
 	<div class="tab" id="login-tab">
-		<h1>ログイン</h1>
-		<input type="text" name="ID" id="input-id" placeholder="IDを入力してください。"><br>
-		<input type="text" name="pass" id="input-password" placeholder="パスワードを入力してください。"><br>
-		<input type="button" id="submit-login" value="ログイン" onclick="getUser()">
+		<div id="input-idPass">
+			<h1>ログイン</h1>
+			<input type="text" name="ID" id="input-id" placeholder="IDを入力してください。"><br>
+			<input type="text" name="pass" id="input-password" placeholder="パスワードを入力してください。"><br>
+			<input type="button" id="submit-login" value="ログイン" onclick="getUser()">
+		</div>
 	</div>
 
 
 	<!-- デザイン画面 -->
 	<div class="tab" id="tab1">
 		<h1 style="text-align:center;">Tシャツデザイン画面</h1>
-		<p>Tシャツのベースカラー</p>
+		<p id="label-base-color">Tシャツのベースカラー</p>
 		<select id="base-color" name="base-color" onchange="ChangeBaseColor()">
 			<option value="W">白</option>
 			<option value="G">グレー</option>
 			<option value="B">黒</option>
 		</select>
-		<div style="text-align: right;">
-			<button id="design-reset" onclick="DesignReserButton()">デザインのリセット</button>
-		</div>
+		<button id="design-reset" onclick="DesignReserButton()">デザインのリセット</button>
+
 		
 		<!-- 入力欄 -->
 		<div class="clearfix">
@@ -60,8 +65,8 @@
 			
 			<p>上段文字のフォントサイズ<input type="number" name="text1_size" class="font-size" value="24" onchange="ChangeDesign()">pt</p>
 			<p>下段文字のフォントサイズ<input type="number" name="text2_size" class="font-size" value="24" onchange="ChangeDesign()">pt</p>
-			<p>文字の縦位置<input type="number" name="vertical_position" class="position" value="0" onchange="ChangeDesign()">%</p>
-			<p>文字の横位置<input type="number" name="side_position" class="position" value="0" onchange="ChangeDesign()">%</p>
+			<p>文字の縦位置<input type="number" name="vertical_position" class="position" value="0" onchange="ChangeDesign()"></p>
+			<p>文字の横位置<input type="number" name="side_position" class="position" value="0" onchange="ChangeDesign()"></p>
 		</div>
 			
 		<!-- Tシャツ表示 -->
@@ -76,7 +81,7 @@
 		
 		<!-- 注文枚数、注文確定ボタン -->
 		<div id="order-submit">
-			<h2>注文枚数 : <input type="text" name="order-count" value="1" onchange="numCheck()">枚 <input type="button" value="注文確定" onclick="buy()"></h2>
+			<h2>注文枚数 : <input type="text" name="order-count" value="1">枚 <input type="button" value="注文確定" onclick="buy()"></h2>
 		</div>
 	</div>
 	
@@ -88,8 +93,9 @@
 		
 		</table>
 	</div>
+	
 </div>
-
+</main>
 <script src="scripts/designChange.js"></script>
 </div>
 </body>
