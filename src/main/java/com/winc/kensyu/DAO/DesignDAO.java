@@ -9,35 +9,33 @@ import com.winc.kensyu.DTO.DesignDTO;
 import com.winc.kensyu.DTO.OrderHistoryDTO;
 
 public class DesignDAO {
-	PreparedStatement stmt = null;
-	ResultSet rs = null;
 	
 	public void getDesignDTO(Connection conn) {
-
-
-        String sql = "SELECT order_code, base_color, text1, text1_size, text1_fontcolor_id, text2, text2_size, text2_fontcolor_id, vertical_position,side_position FROM DESIGN_TABLE where order_code = ?";
-
-        try{
-        	    stmt = conn.prepareStatement(sql);
-        		OrderHistoryDTO Odto = new OrderHistoryDTO();
-        		stmt.setString(1, Odto.getOrderCode());
-        		rs = stmt.executeQuery();
-
-        	DesignDTO dto = new DesignDTO();
-            	dto.setOrderCode(rs.getString("order_code"));
-                dto.setBaseColor(rs.getString("base_color"));
-                dto.setText1(rs.getString("text1"));
-                dto.setText1Size(rs.getInt("text1_size"));
-                dto.setText1FontColorId(rs.getInt("text1_fontcolor_id"));
-                dto.setText2(rs.getString("text2"));
-                dto.setText2Size(rs.getInt("text2_size"));
-                dto.setText2FontColorId(rs.getInt("text2_fontcolor_id"));
-                dto.setVerticalPosition(rs.getInt("vertical_position"));
-                dto.setSidePosition(rs.getInt("side_position"));
-        
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT order_code, base_color, text1, text1_size, text1_fontcolor_id, text2, text2_size, text2fontcolor_id, vertical_position,side_position FROM DESIGN_TABLE where order_code = ?";
+		
+		try{
+			stmt = conn.prepareStatement(sql);
+			OrderHistoryDTO Odto = new OrderHistoryDTO();
+			stmt.setString(1, Odto.getOrderCode());
+			rs = stmt.executeQuery();
+			
+			DesignDTO dto = new DesignDTO();
+			dto.setOrderCode(rs.getString("order_code"));
+			dto.setBaseColor(rs.getString("base_color"));
+			dto.setText1(rs.getString("text1"));
+			dto.setText1Size(rs.getInt("text1_size"));
+			dto.setText1FontColorId(rs.getInt("text1_fontcolor_id"));
+			dto.setText2(rs.getString("text2"));
+			dto.setText2Size(rs.getInt("text2_size"));
+			dto.setText2FontColorId(rs.getInt("text2fontcolor_id"));
+			dto.setVerticalPosition(rs.getInt("vertical_position"));
+			dto.setSidePosition(rs.getInt("side_position"));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
 			try {
 				if(rs != null) {
 					rs.close();
@@ -56,8 +54,9 @@ public class DesignDAO {
 	
 	public boolean setDesignDTO(Connection conn, DesignDTO designDTO) {
 		String sql = "INSERT INTO DESIGN_TABLE(ORDER_CODE, BASE_COLOR, TEXT1, TEXT1_SIZE, TEXT1_FONTCOLOR_ID, TEXT2, TEXT2_SIZE, TEXT2FONTCOLOR_ID, VERTICAL_POSITION, SIDE_POSITION) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		
+		PreparedStatement stmt = null;
 		try {
+			
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, designDTO.getOrderCode());
 			stmt.setString(2, designDTO.getBaseColor());
@@ -79,9 +78,6 @@ public class DesignDAO {
 			return false;
 		}finally {
 			try {
-				if(rs != null) {
-					rs.close();
-				}
 				
 				if(stmt != null) {
 					stmt.close();
